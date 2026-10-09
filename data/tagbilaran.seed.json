@@ -1,0 +1,618 @@
+{
+  "name": "Tagbilaran City Waterworks",
+  "utility": "Tagbilaran City Waterworks",
+  "startYear": 2030,
+  "endYear": 2039,
+  "currency": "PHP",
+  "inputs": {
+    "historicalStart": "2025-01-01",
+    "historicalEnd": "2025-06-30",
+    "connections": 6084,
+    "production": 1385950,
+    "billedVolume": 952194,
+    "collections": 10129070.87,
+    "billings": null,
+    "historicalOpex": null,
+    "households": null,
+    "servedHouseholds": null,
+    "currentTariff": null,
+    "connectionGrowth": null,
+    "consumption": null,
+    "targetNrw": null,
+    "capacity": null,
+    "futureOpex": null,
+    "inflation": 5.0,
+    "energyCost": 13.13,
+    "bulkWaterCost": null,
+    "bulkWaterShare": null,
+    "openingCash": null,
+    "collectionFactor": null,
+    "chosenTariff": null,
+    "workingCapitalMonths": 2,
+    "householdIncome": null,
+    "method": "workbook_reference",
+    "objective": "required_tariff",
+    "notes": "Unvalidated workbook reference. Original protected; duplicate to edit. Reviewed utility assumptions must be entered explicitly, not copied from city-wide demand.",
+    "sourceNotes": "Seven original source files supplied. Collections Jan–Jun 2025 are PHP10,129,070.87; Jan–Jul are PHP12,036,951.99. Billings unavailable. 6,084 connection date unresolved (June/August); December 2025 snapshot 6,314 retained separately. Current residential minimum PHP62/first 10m³ effective September 2016, not a universal PHP6.20 flat rate. Selected report projects PHP255.45m vs full model PHP579.24m. External cost workbooks and commissioning dates missing. Pilot facts are source-reported, not approved planning defaults.",
+    "projects": [
+      {
+        "id": "initial-investment",
+        "name": "Full workbook investment, 2026–2029 (commissioning assumed 2029)",
+        "year": 2029,
+        "amount": 579242798.998943,
+        "grantPercent": 100,
+        "equityPercent": 0,
+        "interestRate": 5,
+        "loanTerm": 30,
+        "usefulLife": 25,
+        "graceYears": 0,
+        "source": "02 INPUT DATA Assumptions!C10; commissioning unresolved"
+      },
+      {
+        "id": "2035-investment",
+        "name": "Workbook additional investment",
+        "year": 2035,
+        "amount": 114056861.65719908,
+        "grantPercent": 100,
+        "equityPercent": 0,
+        "interestRate": 5,
+        "loanTerm": 30,
+        "usefulLife": 25,
+        "graceYears": 0,
+        "source": "02 INPUT DATA Assumptions!I10"
+      }
+    ],
+    "observations": [
+      {
+        "metric": "legacy_connections",
+        "value": 10493.0,
+        "unit": "connections",
+        "periodStart": "2030-01-01",
+        "periodEnd": "2030-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!D4 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_deep_well",
+        "value": 0.0,
+        "unit": "m³/year",
+        "periodStart": "2030-01-01",
+        "periodEnd": "2030-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!D5 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_pwsp",
+        "value": 8557477.465437105,
+        "unit": "m³/year",
+        "periodStart": "2030-01-01",
+        "periodEnd": "2030-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!D6 cached driver",
+        "scope": "Other providers / city-wide"
+      },
+      {
+        "metric": "legacy_bbwsp",
+        "value": 6689710.381881461,
+        "unit": "m³/year",
+        "periodStart": "2030-01-01",
+        "periodEnd": "2030-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!D7 cached driver",
+        "scope": "City-wide net input requirement"
+      },
+      {
+        "metric": "legacy_bulk_price",
+        "value": 19.85,
+        "unit": "PHP/m³",
+        "periodStart": "2030-01-01",
+        "periodEnd": "2030-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!D20",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_connections",
+        "value": 10648.0,
+        "unit": "connections",
+        "periodStart": "2031-01-01",
+        "periodEnd": "2031-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!E4 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_deep_well",
+        "value": 0.0,
+        "unit": "m³/year",
+        "periodStart": "2031-01-01",
+        "periodEnd": "2031-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!E5 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_pwsp",
+        "value": 8621012.614497544,
+        "unit": "m³/year",
+        "periodStart": "2031-01-01",
+        "periodEnd": "2031-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!E6 cached driver",
+        "scope": "Other providers / city-wide"
+      },
+      {
+        "metric": "legacy_bbwsp",
+        "value": 5685015.884552284,
+        "unit": "m³/year",
+        "periodStart": "2031-01-01",
+        "periodEnd": "2031-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!E7 cached driver",
+        "scope": "City-wide net input requirement"
+      },
+      {
+        "metric": "legacy_bulk_price",
+        "value": 19.85,
+        "unit": "PHP/m³",
+        "periodStart": "2031-01-01",
+        "periodEnd": "2031-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!E20",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_connections",
+        "value": 10806.0,
+        "unit": "connections",
+        "periodStart": "2032-01-01",
+        "periodEnd": "2032-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!F4 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_deep_well",
+        "value": 0.0,
+        "unit": "m³/year",
+        "periodStart": "2032-01-01",
+        "periodEnd": "2032-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!F5 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_pwsp",
+        "value": 8741461.159922447,
+        "unit": "m³/year",
+        "periodStart": "2032-01-01",
+        "periodEnd": "2032-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!F6 cached driver",
+        "scope": "Other providers / city-wide"
+      },
+      {
+        "metric": "legacy_bbwsp",
+        "value": 5753992.534275428,
+        "unit": "m³/year",
+        "periodStart": "2032-01-01",
+        "periodEnd": "2032-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!F7 cached driver",
+        "scope": "City-wide net input requirement"
+      },
+      {
+        "metric": "legacy_bulk_price",
+        "value": 19.85,
+        "unit": "PHP/m³",
+        "periodStart": "2032-01-01",
+        "periodEnd": "2032-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!F20",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_connections",
+        "value": 10966.0,
+        "unit": "connections",
+        "periodStart": "2033-01-01",
+        "periodEnd": "2033-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!G4 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_deep_well",
+        "value": 0.0,
+        "unit": "m³/year",
+        "periodStart": "2033-01-01",
+        "periodEnd": "2033-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!G5 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_pwsp",
+        "value": 8865025.375426844,
+        "unit": "m³/year",
+        "periodStart": "2033-01-01",
+        "periodEnd": "2033-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!G6 cached driver",
+        "scope": "Other providers / city-wide"
+      },
+      {
+        "metric": "legacy_bbwsp",
+        "value": 5824193.711446625,
+        "unit": "m³/year",
+        "periodStart": "2033-01-01",
+        "periodEnd": "2033-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!G7 cached driver",
+        "scope": "City-wide net input requirement"
+      },
+      {
+        "metric": "legacy_bulk_price",
+        "value": 19.85,
+        "unit": "PHP/m³",
+        "periodStart": "2033-01-01",
+        "periodEnd": "2033-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!G20",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_connections",
+        "value": 11128.0,
+        "unit": "connections",
+        "periodStart": "2034-01-01",
+        "periodEnd": "2034-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!H4 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_deep_well",
+        "value": 0.0,
+        "unit": "m³/year",
+        "periodStart": "2034-01-01",
+        "periodEnd": "2034-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!H5 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_pwsp",
+        "value": 8991863.287792947,
+        "unit": "m³/year",
+        "periodStart": "2034-01-01",
+        "periodEnd": "2034-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!H6 cached driver",
+        "scope": "Other providers / city-wide"
+      },
+      {
+        "metric": "legacy_bbwsp",
+        "value": 5895652.226481046,
+        "unit": "m³/year",
+        "periodStart": "2034-01-01",
+        "periodEnd": "2034-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!H7 cached driver",
+        "scope": "City-wide net input requirement"
+      },
+      {
+        "metric": "legacy_bulk_price",
+        "value": 19.85,
+        "unit": "PHP/m³",
+        "periodStart": "2034-01-01",
+        "periodEnd": "2034-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!H20",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_connections",
+        "value": 11292.0,
+        "unit": "connections",
+        "periodStart": "2035-01-01",
+        "periodEnd": "2035-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!I4 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_deep_well",
+        "value": 0.0,
+        "unit": "m³/year",
+        "periodStart": "2035-01-01",
+        "periodEnd": "2035-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!I5 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_pwsp",
+        "value": 9122144.766860062,
+        "unit": "m³/year",
+        "periodStart": "2035-01-01",
+        "periodEnd": "2035-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!I6 cached driver",
+        "scope": "Other providers / city-wide"
+      },
+      {
+        "metric": "legacy_bbwsp",
+        "value": 5967804.284177906,
+        "unit": "m³/year",
+        "periodStart": "2035-01-01",
+        "periodEnd": "2035-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!I7 cached driver",
+        "scope": "City-wide net input requirement"
+      },
+      {
+        "metric": "legacy_bulk_price",
+        "value": 25.8,
+        "unit": "PHP/m³",
+        "periodStart": "2035-01-01",
+        "periodEnd": "2035-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!I21",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_connections",
+        "value": 11443.0,
+        "unit": "connections",
+        "periodStart": "2036-01-01",
+        "periodEnd": "2036-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!J4 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_deep_well",
+        "value": 0.0,
+        "unit": "m³/year",
+        "periodStart": "2036-01-01",
+        "periodEnd": "2036-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!J5 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_pwsp",
+        "value": 9246266.655354984,
+        "unit": "m³/year",
+        "periodStart": "2036-01-01",
+        "periodEnd": "2036-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!J6 cached driver",
+        "scope": "Other providers / city-wide"
+      },
+      {
+        "metric": "legacy_bbwsp",
+        "value": 6035096.367707848,
+        "unit": "m³/year",
+        "periodStart": "2036-01-01",
+        "periodEnd": "2036-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!J7 cached driver",
+        "scope": "City-wide net input requirement"
+      },
+      {
+        "metric": "legacy_bulk_price",
+        "value": 25.8,
+        "unit": "PHP/m³",
+        "periodStart": "2036-01-01",
+        "periodEnd": "2036-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!J21",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_connections",
+        "value": 11596.0,
+        "unit": "connections",
+        "periodStart": "2037-01-01",
+        "periodEnd": "2037-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!K4 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_deep_well",
+        "value": 0.0,
+        "unit": "m³/year",
+        "periodStart": "2037-01-01",
+        "periodEnd": "2037-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!K5 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_pwsp",
+        "value": 9373936.711894112,
+        "unit": "m³/year",
+        "periodStart": "2037-01-01",
+        "periodEnd": "2037-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!K6 cached driver",
+        "scope": "Other providers / city-wide"
+      },
+      {
+        "metric": "legacy_bbwsp",
+        "value": 6103550.550377553,
+        "unit": "m³/year",
+        "periodStart": "2037-01-01",
+        "periodEnd": "2037-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!K7 cached driver",
+        "scope": "City-wide net input requirement"
+      },
+      {
+        "metric": "legacy_bulk_price",
+        "value": 25.8,
+        "unit": "PHP/m³",
+        "periodStart": "2037-01-01",
+        "periodEnd": "2037-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!K21",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_connections",
+        "value": 11751.0,
+        "unit": "connections",
+        "periodStart": "2038-01-01",
+        "periodEnd": "2038-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!L4 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_deep_well",
+        "value": 0.0,
+        "unit": "m³/year",
+        "periodStart": "2038-01-01",
+        "periodEnd": "2038-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!L5 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_pwsp",
+        "value": 9505360.829506135,
+        "unit": "m³/year",
+        "periodStart": "2038-01-01",
+        "periodEnd": "2038-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!L6 cached driver",
+        "scope": "Other providers / city-wide"
+      },
+      {
+        "metric": "legacy_bbwsp",
+        "value": 6173202.084444303,
+        "unit": "m³/year",
+        "periodStart": "2038-01-01",
+        "periodEnd": "2038-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!L7 cached driver",
+        "scope": "City-wide net input requirement"
+      },
+      {
+        "metric": "legacy_bulk_price",
+        "value": 25.8,
+        "unit": "PHP/m³",
+        "periodStart": "2038-01-01",
+        "periodEnd": "2038-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!L21",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_connections",
+        "value": 11908.0,
+        "unit": "connections",
+        "periodStart": "2039-01-01",
+        "periodEnd": "2039-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!M4 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_deep_well",
+        "value": 0.0,
+        "unit": "m³/year",
+        "periodStart": "2039-01-01",
+        "periodEnd": "2039-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!M5 cached driver",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "legacy_pwsp",
+        "value": 9640761.131173102,
+        "unit": "m³/year",
+        "periodStart": "2039-01-01",
+        "periodEnd": "2039-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!M6 cached driver",
+        "scope": "Other providers / city-wide"
+      },
+      {
+        "metric": "legacy_bbwsp",
+        "value": 6244088.27719065,
+        "unit": "m³/year",
+        "periodStart": "2039-01-01",
+        "periodEnd": "2039-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!M7 cached driver",
+        "scope": "City-wide net input requirement"
+      },
+      {
+        "metric": "legacy_bulk_price",
+        "value": 25.8,
+        "unit": "PHP/m³",
+        "periodStart": "2039-01-01",
+        "periodEnd": "2039-12-31",
+        "quality": "Estimated",
+        "source": "02 Financial Model / INPUT DATA Assumptions!M21",
+        "scope": "Workbook reference"
+      },
+      {
+        "metric": "billedVolume",
+        "value": 952194,
+        "unit": "m³",
+        "periodStart": "2025-01-01",
+        "periodEnd": "2025-06-30",
+        "quality": "Known",
+        "source": "05 Connections, consumption and collections / p.7, Jan–Jun monthly totals; 03 calculations!C5",
+        "scope": "Utility only"
+      },
+      {
+        "metric": "production",
+        "value": 1385950,
+        "unit": "m³",
+        "periodStart": "2025-01-01",
+        "periodEnd": "2025-06-30",
+        "quality": "Known",
+        "source": "07 Production data / p.2, Jan–Jun; 03 calculations!C6",
+        "scope": "Utility only"
+      },
+      {
+        "metric": "collections",
+        "value": 10129070.87,
+        "unit": "PHP",
+        "periodStart": "2025-01-01",
+        "periodEnd": "2025-06-30",
+        "quality": "Known",
+        "source": "05 Collection summary / p.13, Jan–Jun only; July excluded",
+        "scope": "Utility only"
+      },
+      {
+        "metric": "connection_snapshot",
+        "value": 6084,
+        "unit": "connections",
+        "periodStart": "2025-06-30",
+        "periodEnd": "2025-06-30",
+        "quality": "Estimated",
+        "source": "03 summary!E15; June vs August date unresolved; snapshot used as estimate",
+        "scope": "Utility only"
+      },
+      {
+        "metric": "connection_snapshot",
+        "value": 6314,
+        "unit": "connections",
+        "periodStart": "2025-12-31",
+        "periodEnd": "2025-12-31",
+        "quality": "Known",
+        "source": "05 p.1 December 2025 snapshot; not substituted into June baseline",
+        "scope": "Utility only"
+      }
+    ]
+  }
+}

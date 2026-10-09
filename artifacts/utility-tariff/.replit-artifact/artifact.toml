@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Utility Tariff Simulator"
+description = "Guided, evidence-based water utility planning with saved scenarios, transparent tariff calculations, and versioned reports."
+version = "1.0.0"
+id = "artifacts/utility-tariff"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22489
+
+[services.development]
+run = "pnpm --filter @workspace/utility-tariff run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/utility-tariff", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/utility-tariff/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22489"
+BASE_PATH = "/"

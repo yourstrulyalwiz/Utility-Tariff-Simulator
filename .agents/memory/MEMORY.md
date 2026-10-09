@@ -1,0 +1,1 @@
+- [Export dependency ownership](export-dependencies.md) — typechecking cannot verify export-library resource paths or transitive dependency resolution.

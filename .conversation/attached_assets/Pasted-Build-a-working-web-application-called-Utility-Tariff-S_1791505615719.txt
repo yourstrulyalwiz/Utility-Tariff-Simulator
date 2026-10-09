@@ -1,0 +1,79 @@
+Build a working web application called “Utility Tariff Simulator” using the attached package.
+
+The application will help low-capacity water utilities enter their data, create scenarios, and estimate the average tariff needed to support their service and investment plans.
+
+First, extract the package and read:
+1. README_START_HERE.md
+2. instructions/REPLIT_BUILD_PROMPT.md
+3. instructions/SEED_AND_LANDING_PAGE.md
+4. instructions/APPLICATION_SPECIFICATION.md
+
+Use the supplied prototype as an interface reference. Build the complete application with database-backed persistence.
+
+LANDING PAGE
+
+Create a responsive “My simulations” landing page with a card layout.
+
+Initially display:
+- A “Start a new simulation” card.
+- A prefilled “Tagbilaran City Waterworks” card, labelled “Workbook reference example”, covering 2030–2039.
+
+Each saved simulation should have its own card showing its name, utility, forecast period, status and last update. Include Open/Continue and Duplicate actions.
+
+Create the Tagbilaran example once when the workspace is initialized. Preserve saved simulations across refreshes, restarts and deployments.
+
+PREFILLED EXAMPLE AND TEST DATA
+
+Use data/tagbilaran.seed.json to populate the Tagbilaran simulation. Connect its source references to the seven files in source_files/.
+
+Keep the original example read-only and provide “Duplicate to edit”. Duplicated scenarios must have independent inputs.
+
+Use reference/legacy-engine.mjs to calculate the workbook-reference results. Run the included tests with npm test.
+
+The expected workbook outputs are test benchmarks only. Calculate displayed results from inputs; do not use the expected-output file as the runtime result source.
+
+Keep historical observations separate from forecast assumptions, preserving dates, units and source references. Leave missing information blank and clearly identified.
+
+SIMULATION WORKFLOW
+
+Implement eight guided sections:
+1. Utility and planning period.
+2. Current customers, coverage and water volumes.
+3. Current revenue, collections, tariffs and operating costs.
+4. Future service targets, demand, NRW and water sources.
+5. Future operating costs and efficiency improvements.
+6. Investments, timing, grants, equity and loans.
+7. Assumption review and simulation settings.
+8. Results, comparison and reporting.
+
+Use simple totals first, with optional detailed inputs. Explain technical terms in plain language and display units beside fields.
+
+SIMULATION METHODS
+
+Support:
+- Service plan → required equivalent average tariff.
+- Chosen tariff → financial and funding gaps.
+
+Implement the reviewed utility calculation engine separately from the workbook-reference method. Follow the methodology distinctions and unresolved-data requirements in the specification.
+
+Connect coverage/connections → billed demand → required system input → OPEX and investment/financing → tariff and cash outcomes.
+
+Distinguish utility-only data from city-wide data, production from billed volume, billings from collections, and equivalent average tariffs from actual household bills.
+
+SAVING AND RESULTS
+
+Allow users to create, save, reopen and duplicate simulations. A new blank simulation must start without Tagbilaran-specific data.
+
+Version inputs and calculation runs. Clearly mark results as outdated when inputs change.
+
+Provide annual results, scenario comparisons, calculation explanations and downloadable reports based on a specific saved run.
+
+IMPLEMENTATION ORDER
+
+1. Database, landing page and Tagbilaran seed.
+2. Guided inputs, save/resume and duplication.
+3. Workbook-reference calculations and passing tests.
+4. Reviewed utility simulation engine and comparisons.
+5. Reporting and source traceability.
+
+Start implementing. Document any unresolved modelling ch

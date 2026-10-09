@@ -11,6 +11,218 @@ tags:
   - name: health
     description: Health operations
 paths:
+  /simulations:
+    get:
+      operationId: listSimulations
+      responses:
+        "200":
+          description: Workspace simulations and read-only example
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/Simulation" } }
+    post:
+      operationId: createSimulation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/SimulationInput" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Simulation" }
+  /simulations/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    get:
+      operationId: getSimulation
+      responses:
+        "200":
+          description: Simulation
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Simulation" }
+    put:
+      operationId: updateSimulation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/SimulationUpdate" }
+      responses:
+        "200":
+          description: Saved new input revision
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Simulation" }
+  /simulations/{id}/duplicate:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    post:
+      operationId: duplicateSimulation
+      responses:
+        "201":
+          description: Independent editable copy
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Simulation" }
+  /simulations/{id}/runs:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    get:
+      operationId: listRuns
+      responses:
+        "200":
+          description: Immutable run history
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/CalculationRun" } }
+    post:
+      operationId: calculateSimulation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/RunInput" }
+      responses:
+        "201":
+          description: Frozen calculation
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CalculationRun" }
+  /runs/{id}:
+    get:
+      operationId: getRun
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        "200":
+          description: Frozen result
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CalculationRun" }
+  /runs/{id}/report:
+    post:
+      operationId: createReport
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        "201":
+          description: Saved report version and downloads
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Report" }
+  /workspace/summary:
+    get:
+      operationId: getWorkspaceSummary
+      responses:
+        "200":
+          description: Workspace overview
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/WorkspaceSummary" }
+  /sources:
+    get:
+      operationId: listSources
+      responses:
+        "200":
+          description: Pilot source register
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/SourceDocument" } }
+  /simulations/{id}/evidence/upload:
+    post:
+      operationId: requestEvidenceUpload
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/EvidenceInput" }
+      responses:
+        "200":
+          description: Private signed upload URL
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/EvidenceUpload" }
+  /simulations/{id}/evidence:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    get:
+      operationId: listEvidence
+      responses:
+        "200":
+          description: Evidence documents
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/SourceDocument" } }
+    post:
+      operationId: confirmEvidence
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/EvidenceConfirmation" }
+      responses:
+        "201":
+          description: Accepted evidence metadata
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/SourceDocument" }
+  /auth/user:
+    get:
+      operationId: getCurrentAuthUser
+      responses:
+        "200":
+          description: Session user
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AuthUserEnvelope" }
+  /login:
+    get:
+      operationId: beginBrowserLogin
+      parameters:
+        - { name: returnTo, in: query, schema: { type: string } }
+      responses:
+        "302": { description: Sign in redirect }
+  /logout:
+    get:
+      operationId: logoutBrowserSession
+      parameters:
+        - { name: returnTo, in: query, schema: { type: string } }
+      responses:
+        "302": { description: Sign out redirect }
+  /callback:
+    get:
+      operationId: handleBrowserLoginCallback
+      responses:
+        "302": { description: Callback redirect }
+  /mobile-auth/token-exchange:
+    post:
+      operationId: exchangeMobileAuthorizationCode
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/MobileTokenExchangeRequest" }
+      responses:
+        "200":
+          description: Session
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MobileTokenExchangeSuccess" }
+  /mobile-auth/logout:
+    post:
+      operationId: logoutMobileSession
+      responses:
+        "200":
+          description: Logged out
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/LogoutSuccess" }
   /healthz:
     get:
       operationId: healthCheck
@@ -26,6 +238,273 @@ paths:
                 $ref: "#/components/schemas/HealthStatus"
 components:
   schemas:
+    SimulationInput:
+      type: object
+      required: [name, utility, startYear, endYear]
+      properties:
+        name: { type: string, minLength: 1, maxLength: 160 }
+        utility: { type: string, minLength: 1, maxLength: 160 }
+        startYear: { type: integer, minimum: 2020, maximum: 2100 }
+        endYear: { type: integer, minimum: 2020, maximum: 2100 }
+        currency: { type: string, default: PHP }
+    SimulationUpdate:
+      type: object
+      required: [name, utility, startYear, endYear, currency, version, inputs]
+      properties:
+        name: { type: string, minLength: 1, maxLength: 160 }
+        utility: { type: string, minLength: 1, maxLength: 160 }
+        startYear: { type: integer, minimum: 2020, maximum: 2100 }
+        endYear: { type: integer, minimum: 2020, maximum: 2100 }
+        currency: { type: string }
+        version: { type: integer }
+        inputs: { $ref: "#/components/schemas/SimulationValues" }
+    Simulation:
+      type: object
+      required: [id, name, utility, startYear, endYear, currency, version, inputs, status, readOnly, updatedAt, createdAt, completedSections, resultsOutdated]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        utility: { type: string }
+        startYear: { type: integer }
+        endYear: { type: integer }
+        currency: { type: string }
+        version: { type: integer }
+        inputs: { $ref: "#/components/schemas/SimulationValues" }
+        status: { type: string, enum: [Draft, "Ready to review", "Workbook reference example"] }
+        readOnly: { type: boolean }
+        updatedAt: { type: string }
+        createdAt: { type: string }
+        completedSections: { type: integer }
+        resultsOutdated: { type: boolean }
+        latestRunId: { type: [string, "null"] }
+    SimulationValues:
+      type: object
+      properties:
+        historicalStart: { type: string }
+        historicalEnd: { type: string }
+        connections: { type: [number, "null"], minimum: 0 }
+        households: { type: [number, "null"], minimum: 0 }
+        servedHouseholds: { type: [number, "null"], minimum: 0 }
+        production: { type: [number, "null"], minimum: 0 }
+        billedVolume: { type: [number, "null"], minimum: 0 }
+        billings: { type: [number, "null"], minimum: 0 }
+        collections: { type: [number, "null"], minimum: 0 }
+        historicalOpex: { type: [number, "null"], minimum: 0 }
+        currentTariff: { type: [number, "null"], minimum: 0 }
+        connectionGrowth: { type: [number, "null"], minimum: 0, maximum: 100 }
+        forecastConnections: { type: [number, "null"], minimum: 0 }
+        consumption: { type: [number, "null"], minimum: 0 }
+        targetNrw: { type: [number, "null"], minimum: 0, maximum: 99.9 }
+        capacity: { type: [number, "null"], minimum: 0 }
+        futureOpex: { type: [number, "null"], minimum: 0 }
+        inflation: { type: [number, "null"], minimum: 0, maximum: 100 }
+        energyCost: { type: [number, "null"], minimum: 0 }
+        bulkWaterCost: { type: [number, "null"], minimum: 0 }
+        bulkWaterShare: { type: [number, "null"], minimum: 0, maximum: 100 }
+        openingCash: { type: [number, "null"] }
+        collectionFactor: { type: [number, "null"], minimum: 0.01, maximum: 100 }
+        chosenTariff: { type: [number, "null"], minimum: 0 }
+        workingCapitalMonths: { type: [number, "null"], minimum: 0, maximum: 12 }
+        householdIncome: { type: [number, "null"], minimum: 0 }
+        objective: { type: string, enum: [required_tariff, chosen_tariff] }
+        method: { type: string, enum: [reviewed, workbook_reference] }
+        notes: { type: string }
+        sourceNotes: { type: string }
+        actions: { type: string }
+        projects:
+          type: array
+          items: { $ref: "#/components/schemas/InvestmentProject" }
+        observations:
+          type: array
+          items: { $ref: "#/components/schemas/Observation" }
+    InvestmentProject:
+      type: object
+      required: [id, name, year, amount, grantPercent, equityPercent, interestRate, loanTerm, usefulLife]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        year: { type: integer }
+        amount: { type: number, minimum: 0 }
+        grantPercent: { type: number, minimum: 0, maximum: 100 }
+        equityPercent: { type: number, minimum: 0, maximum: 100 }
+        interestRate: { type: number, minimum: 0, maximum: 100 }
+        loanTerm: { type: integer, minimum: 1, maximum: 50 }
+        usefulLife: { type: integer, minimum: 1, maximum: 100 }
+        graceYears: { type: integer, minimum: 0, maximum: 10 }
+        source: { type: string }
+    Observation:
+      type: object
+      required: [metric, value, unit, periodStart, periodEnd, quality, source, scope]
+      properties:
+        metric: { type: string }
+        value: { type: [number, "null"] }
+        unit: { type: string }
+        periodStart: { type: string }
+        periodEnd: { type: string }
+        quality: { type: string, enum: [Known, Estimated, "Not available", "Not applicable"] }
+        source: { type: string }
+        scope: { type: string }
+    RunInput:
+      type: object
+      required: [version]
+      properties:
+        version: { type: integer }
+    CalculationRun:
+      type: object
+      required: [id, simulationId, inputVersion, engineVersion, method, createdAt, inputs, annual, warnings, explanations, baseline, summary]
+      properties:
+        id: { type: string }
+        simulationId: { type: string }
+        inputVersion: { type: integer }
+        engineVersion: { type: string }
+        method: { type: string }
+        createdAt: { type: string }
+        inputs: { $ref: "#/components/schemas/SimulationUpdate" }
+        annual:
+          type: array
+          items: { $ref: "#/components/schemas/AnnualResult" }
+        warnings: { type: array, items: { type: string } }
+        explanations: { type: array, items: { type: string } }
+        baseline: { $ref: "#/components/schemas/BaselineResults" }
+        summary: { $ref: "#/components/schemas/ResultSummary" }
+    AnnualResult:
+      type: object
+      required: [year, connections, billedVolume, systemInput, unmetDemand, opex, depreciation, interest, principal, capex, grants, loanDraw, equity, requiredTariff, revenue, collectedRevenue, cashGap, closingCash]
+      properties:
+        year: { type: integer }
+        connections: { type: [number, "null"] }
+        billedVolume: { type: [number, "null"] }
+        systemInput: { type: [number, "null"] }
+        unmetDemand: { type: [number, "null"] }
+        opex: { type: [number, "null"] }
+        depreciation: { type: [number, "null"] }
+        interest: { type: [number, "null"] }
+        principal: { type: [number, "null"] }
+        capex: { type: [number, "null"] }
+        grants: { type: [number, "null"] }
+        loanDraw: { type: [number, "null"] }
+        equity: { type: [number, "null"] }
+        requiredTariff: { type: [number, "null"] }
+        revenue: { type: [number, "null"] }
+        collectedRevenue: { type: [number, "null"] }
+        cashGap: { type: [number, "null"] }
+        closingCash: { type: [number, "null"] }
+    BaselineResults:
+      type: object
+      required: [days, billedMld, productionMld, nrw, consumption, collectionRatio, averageBilledTariff, cashPerM3, coverage]
+      properties:
+        days: { type: [number, "null"] }
+        billedMld: { type: [number, "null"] }
+        productionMld: { type: [number, "null"] }
+        nrw: { type: [number, "null"] }
+        consumption: { type: [number, "null"] }
+        collectionRatio: { type: [number, "null"] }
+        averageBilledTariff: { type: [number, "null"] }
+        cashPerM3: { type: [number, "null"] }
+        coverage: { type: [number, "null"] }
+    ResultSummary:
+      type: object
+      required: [equivalentTariff, totalInvestment, totalFundingGap, endingCash, affordability, firstFiveYearMinimum, secondFiveYearMinimum]
+      properties:
+        equivalentTariff: { type: [number, "null"] }
+        totalInvestment: { type: [number, "null"] }
+        totalFundingGap: { type: [number, "null"] }
+        endingCash: { type: [number, "null"] }
+        affordability: { type: [number, "null"] }
+        firstFiveYearMinimum: { type: [number, "null"] }
+        secondFiveYearMinimum: { type: [number, "null"] }
+    Report:
+      type: object
+      required: [id, runId, createdAt, version, pdfUrl, docxUrl, csvUrl, jsonUrl]
+      properties:
+        id: { type: string }
+        runId: { type: string }
+        createdAt: { type: string }
+        version: { type: integer }
+        pdfUrl: { type: string }
+        docxUrl: { type: string }
+        csvUrl: { type: string }
+        jsonUrl: { type: string }
+    WorkspaceSummary:
+      type: object
+      required: [simulations, drafts, runs, reports, recentActivity]
+      properties:
+        simulations: { type: integer }
+        drafts: { type: integer }
+        runs: { type: integer }
+        reports: { type: integer }
+        recentActivity: { type: array, items: { $ref: "#/components/schemas/Activity" } }
+    Activity:
+      type: object
+      required: [label, createdAt]
+      properties:
+        label: { type: string }
+        createdAt: { type: string }
+    SourceDocument:
+      type: object
+      required: [id, name, role, locator, available, url]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        role: { type: string }
+        locator: { type: string }
+        available: { type: boolean }
+        url: { type: string }
+    EvidenceInput:
+      type: object
+      required: [name, size, contentType]
+      properties:
+        name: { type: string }
+        size: { type: integer, minimum: 1, maximum: 25000000 }
+        contentType: { type: string }
+    EvidenceConfirmation:
+      type: object
+      required: [id]
+      properties:
+        id: { type: string }
+        locator: { type: string }
+    EvidenceUpload:
+      type: object
+      required: [id, uploadURL]
+      properties:
+        id: { type: string }
+        uploadURL: { type: string }
+    AuthUser:
+      type: object
+      required: [id, email, firstName, lastName, profileImageUrl]
+      properties:
+        id: { type: string }
+        email: { type: [string, "null"] }
+        firstName: { type: [string, "null"] }
+        lastName: { type: [string, "null"] }
+        profileImageUrl: { type: [string, "null"] }
+    AuthUserEnvelope:
+      type: object
+      required: [user]
+      properties:
+        user:
+          oneOf:
+            - { $ref: "#/components/schemas/AuthUser" }
+            - { type: "null" }
+    MobileTokenExchangeRequest:
+      type: object
+      required: [code, code_verifier, redirect_uri, state]
+      properties:
+        code: { type: string, minLength: 1 }
+        code_verifier: { type: string, minLength: 1 }
+        redirect_uri: { type: string, minLength: 1 }
+        state: { type: string, minLength: 1 }
+        nonce: { type: string, minLength: 1 }
+    MobileTokenExchangeSuccess:
+      type: object
+      required: [token]
+      properties:
+        token: { type: string }
+    LogoutSuccess:
+      type: object
+      required: [success]
+      properties:
+        success: { type: boolean, const: true }
     HealthStatus:
       type: object
       properties:
