@@ -9,6 +9,7 @@ The supplied build brief names `REPLIT_BUILD_PROMPT.md`, `SEED_AND_LANDING_PAGE.
 - Jan–June 2025 covers 181 days. Utility billed volume: **952,194 m³**. Utility production/system input: **1,385,950 m³**. Billed MLD 5.260740; production MLD 7.657182; NRW 31.296656%.
 - **6,084** connections is an undated/June–August-conflicting snapshot, not a confirmed six-month average. The resulting 26.084649 m³/connection/month is an estimate. The **6,314** December 2025 snapshot is retained separately, never silently substituted.
 - Collections Jan–June: **PHP10,129,070.87**; Jan–July: **PHP12,036,951.99**. Billings are absent. Collection efficiency and average billed tariff remain unknown. Cash/m³ is not a tariff.
+- For the interactive POC only, the user authorized an editable assumed 80% baseline collection efficiency. It implies six-month billings of PHP12,661,338.5875 and an average rate of PHP13.297015721061042/m³. These are separately labelled scenario results, never replacements for the missing observed billings or observed tariff. Changing an intervention collection target must not recalibrate the baseline.
 - Full model initial CAPEX: **PHP579,242,798.998943**, in 2026–2029; additional investment 2035: **PHP114,056,861.657199**. The report's selected **PHP255.45m** pipelines are a different scope. A provisional 2029 commissioning year is labelled in the fixture; expenditure staging and asset acceptance are unresolved.
 - External cost workbooks are missing and many workbook cells link externally. Cached planning drivers are traceable but not validated.
 - Legacy water denominators combine utility, other-provider and city-wide quantities. They must not become reviewed utility defaults.
@@ -21,3 +22,8 @@ Reviewed calculations are an indicative annual cash-recovery scenario, not a val
 Historical totals always refer to the selected historical period. Unknown investment programs remain unknown until explicitly confirmed. Fixed first-year OPEX excludes optional separate volume-driven energy and bulk-water costs to prevent double counting. Depreciation is shown, not deducted again from cash. Reports are frozen to saved input and engine revisions. Affordability is not assessed without a confirmed household bill and income evidence.
 
 The framework's full 35-page narrative and validated financial viability certification are **not** claimed. Generated reports explicitly say partial/indicative; source validation is still required.
+
+## Interactive POC scope
+The three-section interface is intentionally simpler than the original eight-step workflow. It uses the exact annual workbook costs, a separately identified utility demand estimate, and independent baseline/intervention comparisons. NRW sensitivity reduces variable costs without awarding additional sales; additional O&M saving applies sequentially to remaining costs. Programme costs are assumed annual OPEX while an intervention is enabled.
+
+These source boundaries are not reconciled by the POC. It must not present mixed-source forecasts as calibrated utility financial statements. Reports remain explicitly scoped to their frozen base calculation; report redesign and operational-intervention report exports are deferred.

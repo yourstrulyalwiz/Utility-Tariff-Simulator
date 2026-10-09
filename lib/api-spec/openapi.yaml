@@ -11,6 +11,22 @@ tags:
   - name: health
     description: Health operations
 paths:
+  /simulations/{id}/preview:
+    post:
+      operationId: previewSimulation
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/SimulationUpdate" }
+      responses:
+        "200":
+          description: Non-persisted scenario preview
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/InteractivePreview" }
   /simulations:
     get:
       operationId: listSimulations
@@ -280,6 +296,7 @@ components:
     SimulationValues:
       type: object
       properties:
+        interactive: { $ref: "#/components/schemas/InteractiveSettings" }
         historicalStart: { type: string }
         historicalEnd: { type: string }
         connections: { type: [number, "null"], minimum: 0 }
@@ -353,6 +370,7 @@ components:
       type: object
       required: [id, simulationId, inputVersion, engineVersion, method, createdAt, inputs, annual, warnings, explanations, baseline, summary]
       properties:
+        interactive: { $ref: "#/components/schemas/InteractiveResult" }
         id: { type: string }
         simulationId: { type: string }
         inputVersion: { type: integer }
@@ -389,6 +407,76 @@ components:
         collectedRevenue: { type: [number, "null"] }
         cashGap: { type: [number, "null"] }
         closingCash: { type: [number, "null"] }
+    InteractiveSettings:
+      type: object
+      properties:
+        staffPer1000: { type: [number, "null"], minimum: 0 }
+        monthlySalary: { type: [number, "null"], minimum: 0 }
+        payMonths: { type: [number, "null"], minimum: 0 }
+        chemicalUnitCost: { type: [number, "null"], minimum: 0 }
+        miscellaneousPercent: { type: [number, "null"], minimum: 0 }
+        serviceFeePercent: { type: [number, "null"], minimum: 0 }
+        baselineCollectionPercent: { type: [number, "null"], exclusiveMinimum: 0, maximum: 100 }
+        appliedTariffSource: { type: string, enum: [inferred, manual] }
+        collectEnabled: { type: boolean }
+        collectionTarget: { type: [number, "null"], minimum: 0, maximum: 100 }
+        nrwEnabled: { type: boolean }
+        nrwTarget: { type: [number, "null"], minimum: 0, exclusiveMaximum: 100 }
+        omEnabled: { type: boolean }
+        omSavingPercent: { type: [number, "null"], minimum: 0, maximum: 100 }
+        programmeCost: { type: [number, "null"], minimum: 0 }
+    InteractiveYear:
+      type: object
+      required: [year, fixedOpex, variableOpex, opex, depreciation, workingCapital, requiredRevenue, workbookVolume, workbookTariff, utilityConnections, utilityBilledVolume, systemInput, appliedTariff, collectionPercent, grossBillings, collections, cashOmCoverage, operatingBalance, targetBalance, targetCollectionTariff]
+      properties:
+        year: { type: integer }
+        fixedOpex: { type: [number, "null"] }
+        variableOpex: { type: [number, "null"] }
+        opex: { type: [number, "null"] }
+        depreciation: { type: [number, "null"] }
+        workingCapital: { type: [number, "null"] }
+        requiredRevenue: { type: [number, "null"] }
+        workbookVolume: { type: [number, "null"] }
+        workbookTariff: { type: [number, "null"] }
+        utilityConnections: { type: [number, "null"] }
+        utilityBilledVolume: { type: [number, "null"] }
+        systemInput: { type: [number, "null"] }
+        appliedTariff: { type: [number, "null"] }
+        collectionPercent: { type: [number, "null"] }
+        grossBillings: { type: [number, "null"] }
+        collections: { type: [number, "null"] }
+        cashOmCoverage: { type: [number, "null"] }
+        operatingBalance: { type: [number, "null"] }
+        targetBalance: { type: [number, "null"] }
+        targetCollectionTariff: { type: [number, "null"] }
+    InteractiveCalibration:
+      type: object
+      required: [baselineCollectionPercent, impliedHistoricalBillings, inferredAverageTariff, appliedTariff, baselineNrw, historicalMonths]
+      properties:
+        baselineCollectionPercent: { type: [number, "null"] }
+        impliedHistoricalBillings: { type: [number, "null"] }
+        inferredAverageTariff: { type: [number, "null"] }
+        appliedTariff: { type: [number, "null"] }
+        baselineNrw: { type: [number, "null"] }
+        historicalMonths: { type: [number, "null"] }
+    InteractiveResult:
+      type: object
+      required: [baseline, improved, calibration, warnings]
+      properties:
+        baseline: { type: array, items: { $ref: "#/components/schemas/InteractiveYear" } }
+        improved: { type: array, items: { $ref: "#/components/schemas/InteractiveYear" } }
+        calibration: { $ref: "#/components/schemas/InteractiveCalibration" }
+        warnings: { type: array, items: { type: string } }
+    InteractivePreview:
+      type: object
+      required: [result, original, defaults, inputs, demoEligible, supported]
+      properties:
+        result: { $ref: "#/components/schemas/InteractiveResult" }
+        original: { type: array, items: { $ref: "#/components/schemas/InteractiveYear" } }
+        defaults: { $ref: "#/components/schemas/SimulationValues" }
+        inputs: { $ref: "#/components/schemas/SimulationValues" }
+        demoEligible: { type: boolean }
+        supported: { type: boolean }
     BaselineResults:
       type: object
       required: [days, billedMld, productionMld, nrw, consumption, collectionRatio, averageBilledTariff, cashPerM3, coverage]

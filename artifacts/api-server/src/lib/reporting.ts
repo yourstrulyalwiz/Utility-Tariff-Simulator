@@ -10,6 +10,7 @@ export function reportLines(run:FrozenRun) {
   const s=run.inputs;
   return [
     ["Utility Tariff Simulator", `${s.name} | ${s.utility}`],
+    ...(run.interactive?[["Export scope","Base frozen calculation only. Annual tables and CSV exclude operational intervention results; this is not an export of the interactive improved scenario. The JSON download includes the separately labelled interactive snapshot."]]:[]),
     ["Report status", "Indicative / partial planning report. Not an approved tariff or a financial viability certification."],
     ["Version and period", `${s.startYear}-${s.endYear} | Input revision ${run.inputVersion} | Run ${run.id} | ${run.createdAt}`],
     ["Methodology", `${run.method} | ${run.engineVersion} | Currency ${s.currency}`],

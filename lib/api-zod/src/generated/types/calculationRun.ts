@@ -7,10 +7,12 @@
  */
 import type { AnnualResult } from './annualResult';
 import type { BaselineResults } from './baselineResults';
+import type { InteractiveResult } from './interactiveResult';
 import type { ResultSummary } from './resultSummary';
 import type { SimulationUpdate } from './simulationUpdate';
 
 export interface CalculationRun {
+  interactive?: InteractiveResult;
   id: string;
   simulationId: string;
   inputVersion: number;

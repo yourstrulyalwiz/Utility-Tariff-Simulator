@@ -26,7 +26,9 @@ Saved, evidence-aware utility tariff and cash-flow planning scenarios, with an i
 
 ## Where things live
 
-- `artifacts/utility-tariff/src`: landing, eight-step editor, results, comparisons, sources and guide.
+- `artifacts/utility-tariff/src`: landing, three-section interactive POC, reviewed-scenario compatibility, saved results, comparisons, sources and guide.
+- `artifacts/api-server/src/lib/interactive.ts`: shared pure workbook components and POC baseline/intervention calculations.
+- `artifacts/api-server/src/lib/preview.ts`: non-persisting draft preview and demo-only initialization; never seeds or updates a database.
 - `artifacts/api-server/src/lib/engine.ts`: pure reviewed/reference calculation methods; report exports and reference fixture initialization are separate modules.
 - `lib/db/src/schema`: persistent simulations, revisions, observations, investments, runs, reports, evidence and Replit OIDC sessions.
 - `lib/api-spec/openapi.yaml`: API contracts. Regenerate clients and validators after changes.
@@ -44,7 +46,16 @@ Saved, evidence-aware utility tariff and cash-flow planning scenarios, with an i
 
 ## Product
 
-My simulations, blank creation, independent duplication, guided input review, source observations and evidence uploads, two calculation objectives, method comparison, immutable run history, stale-result warnings, and PDF/Word/CSV/JSON exports. Replit OIDC login is required for private saves, source downloads, uploads and exports.
+My simulations, blank creation, independent duplication, Setup / Tariff simulator / Operational improvements, live non-persisting previews, immutable run history, and legacy frozen-report exports. Replit OIDC login is required for private saves, source downloads, uploads and exports. Existing reviewed-method financing scenarios remain separate and are never silently converted into workbook POC scenarios.
+
+## Interactive POC modelling rules
+
+- The user-authorized 80% collection calibration is an editable illustrative assumption. Its implied billings and average rate are not observed historical facts; never write them into observed billings or currentTariff.
+- Keep workbook city/provider volume separate from utility billed sales. The large difference between reproduced workbook tariff and the collection-adjusted target tariff is intentional, not an error to hide.
+- Each year uses its own calculated workbook OPEX. NRW affects variable costs only; O&M savings apply to the remaining costs. Collections efficiency affects receipts, not the cost-based workbook tariff.
+- Intervention previews always start from the same unadjusted draft, not previous output. Preview does not save; frozen runs must use the same calculation as preview.
+- The flat-demand Tagbilaran defaults are demo-only, labelled estimates. Do not initialize unrelated utilities with pilot facts or overwrite an explicit missing input.
+- This POC is grant-only and does not add financing redesign, attribution waterfalls or report redesign. Existing reports are base frozen calculations, not exports of the live intervention view.
 
 ## User preferences
 

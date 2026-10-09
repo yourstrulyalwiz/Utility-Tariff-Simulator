@@ -15,6 +15,8 @@ const TERMS: [string, string][] = [
   ["Observation quality", "Known means measured or documented. Estimated means a best guess. Not available and Not applicable are kept separate from zero."],
 ];
 const LIMITS = [
+  "The tariff simulator has three sections: Setup, Tariff simulator and Operational improvements. Charts update as you type from a live preview that is never saved; Save keeps your inputs and Record run freezes a calculation. Reviewed-method scenarios keep their saved-results view.",
+  "The collection calibration infers an illustrative billing base from reported collections and an assumed baseline collection rate. Inferred figures are never stored as observed billings or tariffs. Improvement effects are calculated together from the same inputs, not summed.",
   "All calculations run on the server and are saved as immutable runs. Editing inputs never changes an earlier run.",
   "A blank input is treated as unknown, not as zero. Results may be incomplete or show warnings when inputs are missing.",
   "The reviewed method is the default. The workbook reference method reproduces a legacy spreadsheet for comparison.",

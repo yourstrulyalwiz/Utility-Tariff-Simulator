@@ -2,12 +2,13 @@ import { Router, type IRouter, type Request, type Response, type NextFunction } 
 import { randomUUID, createHash } from "node:crypto";
 import { db, simulationsTable, revisionsTable, runsTable, reportsTable, evidenceTable } from "@workspace/db";
 import { and, eq, or, desc, inArray } from "drizzle-orm";
-import { CreateSimulationBody, UpdateSimulationBody, CalculateSimulationBody, RequestEvidenceUploadBody, ConfirmEvidenceBody } from "@workspace/api-zod";
+import { CreateSimulationBody, UpdateSimulationBody, CalculateSimulationBody, RequestEvidenceUploadBody, ConfirmEvidenceBody, PreviewSimulationBody } from "@workspace/api-zod";
 import { calculate, known, type Snapshot, type Values } from "../lib/engine";
 import { sources } from "../lib/source-register";
 import { addRevisionDetails, workspaceFile } from "../lib/seed";
 import { ObjectStorageService, objectStorageClient } from "../lib/objectStorage";
 import { storeReportFiles, type FrozenRun } from "../lib/reporting";
+import { previewDraft } from "../lib/preview";
 const router:IRouter=Router(), storage=new ObjectStorageService();
 class HttpError extends Error { constructor(public status:number,message:string){super(message);} }
 const wrap=(fn:(req:Request,res:Response)=>Promise<unknown>)=>(req:Request,res:Response,next:NextFunction)=>{fn(req,res).catch(next);};
@@ -33,6 +34,7 @@ function validate(s:Snapshot) {
     if(p.year>2100||p.year<1900)throw new HttpError(400,"Invalid project year");
   }
   if((s.inputs.observations?.length??0)>1000 || (s.inputs.projects?.length??0)>100)throw new HttpError(400,"Too many detail records");
+  for(const o of s.inputs.observations??[])if(o.metric.startsWith("legacy_")&&known(o.value)&&o.value<0)throw new HttpError(400,"Annual workbook volumes, connection counts and prices cannot be negative.");
 }
 async function view(row:typeof simulationsTable.$inferSelect) {
   const [latest]=await db.select({id:runsTable.id,inputVersion:runsTable.inputVersion}).from(runsTable).where(eq(runsTable.simulationId,row.id)).orderBy(desc(runsTable.createdAt)).limit(1);
@@ -62,13 +64,23 @@ router.post("/simulations",wrap(async(req,res)=>{
   validate({...data,currency:data.currency??"PHP",version:1,inputs:{}});
   const id=randomUUID();
   const row=await db.transaction(async tx=>{
-    const [created]=await tx.insert(simulationsTable).values({id,ownerId,...data,currency:data.currency??"PHP",inputs:{},version:1}).returning();
+    const [created]=await tx.insert(simulationsTable).values({id,ownerId,...data,currency:data.currency??"PHP",inputs:{method:"workbook_reference"},version:1}).returning();
     await tx.insert(revisionsTable).values({id:randomUUID(),simulationId:id,version:1,snapshot:snapshot(created!)});
     return created!;
   });
   res.status(201).json(await view(row));
 }));
 router.get("/simulations/:id",wrap(async(req,res)=>res.json(await view(await simulation(req,String(req.params.id))))));
+router.post("/simulations/:id/preview",wrap(async(req,res)=>{
+  const row=await simulation(req,String(req.params.id));
+  if(!row.readOnly)user(req);
+  const requested=PreviewSimulationBody.parse(req.body);
+  // Protected examples ignore supplied overrides; they are never previewed as edited.
+  const draft=row.readOnly?snapshot(row):requested;
+  validate(draft);
+  res.setHeader("Cache-Control","private, no-store");
+  res.json(await previewDraft(draft,row.inputs as Values));
+}));
 router.put("/simulations/:id",wrap(async(req,res)=>{
   const id=String(req.params.id);await simulation(req,id,true);
   const data=UpdateSimulationBody.parse(req.body);validate(data);

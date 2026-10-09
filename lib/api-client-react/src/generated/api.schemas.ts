@@ -29,6 +29,80 @@ export interface SimulationInput {
   currency?: string;
 }
 
+export type InteractiveSettingsAppliedTariffSource = typeof InteractiveSettingsAppliedTariffSource[keyof typeof InteractiveSettingsAppliedTariffSource];
+
+
+export const InteractiveSettingsAppliedTariffSource = {
+  inferred: 'inferred',
+  manual: 'manual',
+} as const;
+
+export interface InteractiveSettings {
+  /**
+     * @minimum 0
+     * @nullable
+     */
+  staffPer1000?: number | null;
+  /**
+     * @minimum 0
+     * @nullable
+     */
+  monthlySalary?: number | null;
+  /**
+     * @minimum 0
+     * @nullable
+     */
+  payMonths?: number | null;
+  /**
+     * @minimum 0
+     * @nullable
+     */
+  chemicalUnitCost?: number | null;
+  /**
+     * @minimum 0
+     * @nullable
+     */
+  miscellaneousPercent?: number | null;
+  /**
+     * @minimum 0
+     * @nullable
+     */
+  serviceFeePercent?: number | null;
+  /**
+     * @maximum 100
+     * @exclusiveMinimum 0
+     * @nullable
+     */
+  baselineCollectionPercent?: number | null;
+  appliedTariffSource?: InteractiveSettingsAppliedTariffSource;
+  collectEnabled?: boolean;
+  /**
+     * @minimum 0
+     * @maximum 100
+     * @nullable
+     */
+  collectionTarget?: number | null;
+  nrwEnabled?: boolean;
+  /**
+     * @minimum 0
+     * @exclusiveMaximum 100
+     * @nullable
+     */
+  nrwTarget?: number | null;
+  omEnabled?: boolean;
+  /**
+     * @minimum 0
+     * @maximum 100
+     * @nullable
+     */
+  omSavingPercent?: number | null;
+  /**
+     * @minimum 0
+     * @nullable
+     */
+  programmeCost?: number | null;
+}
+
 export type SimulationValuesObjective = typeof SimulationValuesObjective[keyof typeof SimulationValuesObjective];
 
 
@@ -107,6 +181,7 @@ export interface Observation {
 }
 
 export interface SimulationValues {
+  interactive?: InteractiveSettings;
   historicalStart?: string;
   historicalEnd?: string;
   /**
@@ -299,6 +374,70 @@ export interface RunInput {
   version: number;
 }
 
+export interface InteractiveYear {
+  year: number;
+  /** @nullable */
+  fixedOpex: number | null;
+  /** @nullable */
+  variableOpex: number | null;
+  /** @nullable */
+  opex: number | null;
+  /** @nullable */
+  depreciation: number | null;
+  /** @nullable */
+  workingCapital: number | null;
+  /** @nullable */
+  requiredRevenue: number | null;
+  /** @nullable */
+  workbookVolume: number | null;
+  /** @nullable */
+  workbookTariff: number | null;
+  /** @nullable */
+  utilityConnections: number | null;
+  /** @nullable */
+  utilityBilledVolume: number | null;
+  /** @nullable */
+  systemInput: number | null;
+  /** @nullable */
+  appliedTariff: number | null;
+  /** @nullable */
+  collectionPercent: number | null;
+  /** @nullable */
+  grossBillings: number | null;
+  /** @nullable */
+  collections: number | null;
+  /** @nullable */
+  cashOmCoverage: number | null;
+  /** @nullable */
+  operatingBalance: number | null;
+  /** @nullable */
+  targetBalance: number | null;
+  /** @nullable */
+  targetCollectionTariff: number | null;
+}
+
+export interface InteractiveCalibration {
+  /** @nullable */
+  baselineCollectionPercent: number | null;
+  /** @nullable */
+  impliedHistoricalBillings: number | null;
+  /** @nullable */
+  inferredAverageTariff: number | null;
+  /** @nullable */
+  appliedTariff: number | null;
+  /** @nullable */
+  baselineNrw: number | null;
+  /** @nullable */
+  historicalMonths: number | null;
+}
+
+export interface InteractiveResult {
+  baseline: InteractiveYear[];
+  improved: InteractiveYear[];
+  calibration: InteractiveCalibration;
+  warnings: string[];
+}
+
 export interface AnnualResult {
   year: number;
   /** @nullable */
@@ -376,6 +515,7 @@ export interface ResultSummary {
 }
 
 export interface CalculationRun {
+  interactive?: InteractiveResult;
   id: string;
   simulationId: string;
   inputVersion: number;
@@ -388,6 +528,15 @@ export interface CalculationRun {
   explanations: string[];
   baseline: BaselineResults;
   summary: ResultSummary;
+}
+
+export interface InteractivePreview {
+  result: InteractiveResult;
+  original: InteractiveYear[];
+  defaults: SimulationValues;
+  inputs: SimulationValues;
+  demoEligible: boolean;
+  supported: boolean;
 }
 
 export interface Report {

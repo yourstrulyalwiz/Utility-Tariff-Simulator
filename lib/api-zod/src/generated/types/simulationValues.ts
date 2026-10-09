@@ -5,12 +5,14 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { InteractiveSettings } from './interactiveSettings';
 import type { InvestmentProject } from './investmentProject';
 import type { Observation } from './observation';
 import type { SimulationValuesMethod } from './simulationValuesMethod';
 import type { SimulationValuesObjective } from './simulationValuesObjective';
 
 export interface SimulationValues {
+  interactive?: InteractiveSettings;
   historicalStart?: string;
   historicalEnd?: string;
   /**

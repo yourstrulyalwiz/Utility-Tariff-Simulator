@@ -27,6 +27,7 @@ import type {
   EvidenceInput,
   EvidenceUpload,
   HealthStatus,
+  InteractivePreview,
   LogoutBrowserSessionParams,
   LogoutSuccess,
   MobileTokenExchangeRequest,
@@ -66,6 +67,89 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   }
   return result;
 };
+
+export const getPreviewSimulationUrl = (id: string,) => {
+
+
+
+
+  return `/api/simulations/${id}/preview`
+}
+
+export const previewSimulation = async (id: string,
+    simulationUpdate: SimulationUpdate, options?: Parameters<typeof customFetch>[1]): Promise<InteractivePreview> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<InteractivePreview>(getPreviewSimulationUrl(id),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(simulationUpdate)
+  }
+);}
+
+
+
+
+
+export const getPreviewSimulationMutationKey = () => ['previewSimulation'] as const;
+
+export const getPreviewSimulationMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof previewSimulation>>, TError,PreviewSimulationMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof previewSimulation>>, TError,PreviewSimulationMutationVariables, TContext> => {
+
+const mutationKey = getPreviewSimulationMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof previewSimulation>>, PreviewSimulationMutationVariables> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  previewSimulation(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PreviewSimulationMutationResult = NonNullable<Awaited<ReturnType<typeof previewSimulation>>>
+    export type PreviewSimulationMutationBody = BodyType<SimulationUpdate>
+    export type PreviewSimulationMutationError = ErrorType<unknown>
+    export type PreviewSimulationMutationVariables = {id: string;data: BodyType<SimulationUpdate>}
+
+    export const usePreviewSimulation = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof previewSimulation>>, TError,PreviewSimulationMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof previewSimulation>>,
+        TError,
+        PreviewSimulationMutationVariables,
+        TContext
+      > => {
+      return useMutation(getPreviewSimulationMutationOptions(options));
+    }
 
 export const getListSimulationsUrl = () => {
 

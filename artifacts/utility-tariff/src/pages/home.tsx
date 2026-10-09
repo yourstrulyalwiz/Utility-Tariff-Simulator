@@ -76,7 +76,7 @@ export default function Home() {
             className="rise text-left rounded-xl border-2 border-dashed border-primary/50 bg-card/60 p-6 min-h-52 flex flex-col justify-between hover:bg-card hover:border-primary transition-colors">
             <Plus className="h-8 w-8 text-accent" aria-hidden />
             <div><h2 className="font-display text-2xl text-primary">Start a new simulation</h2>
-              <p className="text-sm text-muted-foreground mt-1">{isAuthenticated ? "Begin with a blank guided workflow in eight sections." : "Sign in to save your own simulation."}</p></div>
+              <p className="text-sm text-muted-foreground mt-1">{isAuthenticated ? "Start blank: set up, then enter your own figures in the tariff simulator." : "Sign in to save your own simulation."}</p></div>
           </button>
           {list.isLoading && [0, 1].map((i) => <Skeleton key={i} className="min-h-52 rounded-xl" />)}
           {list.data?.map((sim, i) => (
@@ -89,12 +89,12 @@ export default function Home() {
               <dl className="text-sm grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
                 <dt className="text-muted-foreground">Forecast</dt><dd className="num">{sim.startYear}{"\u2013"}{sim.endYear}</dd>
                 <dt className="text-muted-foreground">Updated</dt><dd>{when(sim.updatedAt)}</dd>
-                {!sim.readOnly && <><dt className="text-muted-foreground">Progress</dt><dd>{sim.completedSections} of 8 sections</dd></>}
+                {!sim.readOnly && <><dt className="text-muted-foreground">Workspace</dt><dd>{sim.inputs.method==="workbook_reference"||Object.keys(sim.inputs).length===0?"Interactive tariff simulator":"Reviewed-method scenario"}</dd></>}
               </dl>
               {sim.resultsOutdated && <p className="text-xs text-accent-foreground bg-accent/20 rounded px-2 py-1">Results are out of date</p>}
               <div className="mt-auto flex gap-2">
                 <Button asChild size="sm" data-testid={`button-open-${sim.id}`}><Link href={`/simulations/${sim.id}`}>{sim.readOnly ? "Open" : "Continue"}</Link></Button>
-                <Button size="sm" variant="outline" onClick={() => duplicate(sim)} disabled={dup.isPending} data-testid={`button-duplicate-${sim.id}`}><Copy className="h-4 w-4 mr-1" />{sim.readOnly ? "Duplicate to edit" : "Duplicate"}</Button>
+                <Button size="sm" variant="outline" onClick={() => duplicate(sim)} disabled={dup.isPending} data-testid={`button-duplicate-${sim.id}`}><Copy className="h-4 w-4 mr-1" />{sim.readOnly ? "Try your own scenario" : "Duplicate"}</Button>
               </div>
             </article>
           ))}

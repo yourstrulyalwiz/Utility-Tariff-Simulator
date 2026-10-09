@@ -8,6 +8,649 @@
 import * as zod from 'zod';
 
 
+export const PreviewSimulationParams = zod.object({
+  "id": zod.coerce.string()
+})
+
+export const previewSimulationBodyNameMax = 160;
+
+export const previewSimulationBodyUtilityMax = 160;
+
+export const previewSimulationBodyStartYearMin = 2020;
+export const previewSimulationBodyStartYearMax = 2100;
+
+export const previewSimulationBodyEndYearMin = 2020;
+export const previewSimulationBodyEndYearMax = 2100;
+
+export const previewSimulationBodyInputsInteractiveStaffPer1000Min = 0;
+
+export const previewSimulationBodyInputsInteractiveMonthlySalaryMin = 0;
+
+export const previewSimulationBodyInputsInteractivePayMonthsMin = 0;
+
+export const previewSimulationBodyInputsInteractiveChemicalUnitCostMin = 0;
+
+export const previewSimulationBodyInputsInteractiveMiscellaneousPercentMin = 0;
+
+export const previewSimulationBodyInputsInteractiveServiceFeePercentMin = 0;
+
+export const previewSimulationBodyInputsInteractiveBaselineCollectionPercentExclusiveMin = 0;
+export const previewSimulationBodyInputsInteractiveBaselineCollectionPercentMax = 100;
+
+export const previewSimulationBodyInputsInteractiveCollectionTargetMin = 0;
+export const previewSimulationBodyInputsInteractiveCollectionTargetMax = 100;
+
+export const previewSimulationBodyInputsInteractiveNrwTargetMin = 0;
+export const previewSimulationBodyInputsInteractiveNrwTargetExclusiveMax = 100;
+
+export const previewSimulationBodyInputsInteractiveOmSavingPercentMin = 0;
+export const previewSimulationBodyInputsInteractiveOmSavingPercentMax = 100;
+
+export const previewSimulationBodyInputsInteractiveProgrammeCostMin = 0;
+
+export const previewSimulationBodyInputsConnectionsMin = 0;
+
+export const previewSimulationBodyInputsHouseholdsMin = 0;
+
+export const previewSimulationBodyInputsServedHouseholdsMin = 0;
+
+export const previewSimulationBodyInputsProductionMin = 0;
+
+export const previewSimulationBodyInputsBilledVolumeMin = 0;
+
+export const previewSimulationBodyInputsBillingsMin = 0;
+
+export const previewSimulationBodyInputsCollectionsMin = 0;
+
+export const previewSimulationBodyInputsHistoricalOpexMin = 0;
+
+export const previewSimulationBodyInputsCurrentTariffMin = 0;
+
+export const previewSimulationBodyInputsConnectionGrowthMin = 0;
+export const previewSimulationBodyInputsConnectionGrowthMax = 100;
+
+export const previewSimulationBodyInputsForecastConnectionsMin = 0;
+
+export const previewSimulationBodyInputsConsumptionMin = 0;
+
+export const previewSimulationBodyInputsTargetNrwMin = 0;
+export const previewSimulationBodyInputsTargetNrwMax = 99.9;
+
+export const previewSimulationBodyInputsCapacityMin = 0;
+
+export const previewSimulationBodyInputsFutureOpexMin = 0;
+
+export const previewSimulationBodyInputsInflationMin = 0;
+export const previewSimulationBodyInputsInflationMax = 100;
+
+export const previewSimulationBodyInputsEnergyCostMin = 0;
+
+export const previewSimulationBodyInputsBulkWaterCostMin = 0;
+
+export const previewSimulationBodyInputsBulkWaterShareMin = 0;
+export const previewSimulationBodyInputsBulkWaterShareMax = 100;
+
+export const previewSimulationBodyInputsCollectionFactorMin = 0.01;
+export const previewSimulationBodyInputsCollectionFactorMax = 100;
+
+export const previewSimulationBodyInputsChosenTariffMin = 0;
+
+export const previewSimulationBodyInputsWorkingCapitalMonthsMin = 0;
+export const previewSimulationBodyInputsWorkingCapitalMonthsMax = 12;
+
+export const previewSimulationBodyInputsHouseholdIncomeMin = 0;
+
+export const previewSimulationBodyInputsProjectsItemAmountMin = 0;
+
+export const previewSimulationBodyInputsProjectsItemGrantPercentMin = 0;
+export const previewSimulationBodyInputsProjectsItemGrantPercentMax = 100;
+
+export const previewSimulationBodyInputsProjectsItemEquityPercentMin = 0;
+export const previewSimulationBodyInputsProjectsItemEquityPercentMax = 100;
+
+export const previewSimulationBodyInputsProjectsItemInterestRateMin = 0;
+export const previewSimulationBodyInputsProjectsItemInterestRateMax = 100;
+
+export const previewSimulationBodyInputsProjectsItemLoanTermMax = 50;
+
+export const previewSimulationBodyInputsProjectsItemUsefulLifeMax = 100;
+
+export const previewSimulationBodyInputsProjectsItemGraceYearsMin = 0;
+export const previewSimulationBodyInputsProjectsItemGraceYearsMax = 10;
+
+
+
+export const PreviewSimulationBody = zod.object({
+  "name": zod.string().min(1).max(previewSimulationBodyNameMax),
+  "utility": zod.string().min(1).max(previewSimulationBodyUtilityMax),
+  "startYear": zod.number().int().min(previewSimulationBodyStartYearMin).max(previewSimulationBodyStartYearMax),
+  "endYear": zod.number().int().min(previewSimulationBodyEndYearMin).max(previewSimulationBodyEndYearMax),
+  "currency": zod.string(),
+  "version": zod.number().int(),
+  "inputs": zod.object({
+  "interactive": zod.object({
+  "staffPer1000": zod.number().min(previewSimulationBodyInputsInteractiveStaffPer1000Min).nullish(),
+  "monthlySalary": zod.number().min(previewSimulationBodyInputsInteractiveMonthlySalaryMin).nullish(),
+  "payMonths": zod.number().min(previewSimulationBodyInputsInteractivePayMonthsMin).nullish(),
+  "chemicalUnitCost": zod.number().min(previewSimulationBodyInputsInteractiveChemicalUnitCostMin).nullish(),
+  "miscellaneousPercent": zod.number().min(previewSimulationBodyInputsInteractiveMiscellaneousPercentMin).nullish(),
+  "serviceFeePercent": zod.number().min(previewSimulationBodyInputsInteractiveServiceFeePercentMin).nullish(),
+  "baselineCollectionPercent": zod.number().gt(previewSimulationBodyInputsInteractiveBaselineCollectionPercentExclusiveMin).max(previewSimulationBodyInputsInteractiveBaselineCollectionPercentMax).nullish(),
+  "appliedTariffSource": zod.enum(['inferred', 'manual']).optional(),
+  "collectEnabled": zod.boolean().optional(),
+  "collectionTarget": zod.number().min(previewSimulationBodyInputsInteractiveCollectionTargetMin).max(previewSimulationBodyInputsInteractiveCollectionTargetMax).nullish(),
+  "nrwEnabled": zod.boolean().optional(),
+  "nrwTarget": zod.number().min(previewSimulationBodyInputsInteractiveNrwTargetMin).lt(previewSimulationBodyInputsInteractiveNrwTargetExclusiveMax).nullish(),
+  "omEnabled": zod.boolean().optional(),
+  "omSavingPercent": zod.number().min(previewSimulationBodyInputsInteractiveOmSavingPercentMin).max(previewSimulationBodyInputsInteractiveOmSavingPercentMax).nullish(),
+  "programmeCost": zod.number().min(previewSimulationBodyInputsInteractiveProgrammeCostMin).nullish()
+}).optional(),
+  "historicalStart": zod.string().optional(),
+  "historicalEnd": zod.string().optional(),
+  "connections": zod.number().min(previewSimulationBodyInputsConnectionsMin).nullish(),
+  "households": zod.number().min(previewSimulationBodyInputsHouseholdsMin).nullish(),
+  "servedHouseholds": zod.number().min(previewSimulationBodyInputsServedHouseholdsMin).nullish(),
+  "production": zod.number().min(previewSimulationBodyInputsProductionMin).nullish(),
+  "billedVolume": zod.number().min(previewSimulationBodyInputsBilledVolumeMin).nullish(),
+  "billings": zod.number().min(previewSimulationBodyInputsBillingsMin).nullish(),
+  "collections": zod.number().min(previewSimulationBodyInputsCollectionsMin).nullish(),
+  "historicalOpex": zod.number().min(previewSimulationBodyInputsHistoricalOpexMin).nullish(),
+  "currentTariff": zod.number().min(previewSimulationBodyInputsCurrentTariffMin).nullish(),
+  "connectionGrowth": zod.number().min(previewSimulationBodyInputsConnectionGrowthMin).max(previewSimulationBodyInputsConnectionGrowthMax).nullish(),
+  "forecastConnections": zod.number().min(previewSimulationBodyInputsForecastConnectionsMin).nullish(),
+  "consumption": zod.number().min(previewSimulationBodyInputsConsumptionMin).nullish(),
+  "targetNrw": zod.number().min(previewSimulationBodyInputsTargetNrwMin).max(previewSimulationBodyInputsTargetNrwMax).nullish(),
+  "capacity": zod.number().min(previewSimulationBodyInputsCapacityMin).nullish(),
+  "futureOpex": zod.number().min(previewSimulationBodyInputsFutureOpexMin).nullish(),
+  "inflation": zod.number().min(previewSimulationBodyInputsInflationMin).max(previewSimulationBodyInputsInflationMax).nullish(),
+  "energyCost": zod.number().min(previewSimulationBodyInputsEnergyCostMin).nullish(),
+  "bulkWaterCost": zod.number().min(previewSimulationBodyInputsBulkWaterCostMin).nullish(),
+  "bulkWaterShare": zod.number().min(previewSimulationBodyInputsBulkWaterShareMin).max(previewSimulationBodyInputsBulkWaterShareMax).nullish(),
+  "openingCash": zod.number().nullish(),
+  "collectionFactor": zod.number().min(previewSimulationBodyInputsCollectionFactorMin).max(previewSimulationBodyInputsCollectionFactorMax).nullish(),
+  "chosenTariff": zod.number().min(previewSimulationBodyInputsChosenTariffMin).nullish(),
+  "workingCapitalMonths": zod.number().min(previewSimulationBodyInputsWorkingCapitalMonthsMin).max(previewSimulationBodyInputsWorkingCapitalMonthsMax).nullish(),
+  "householdIncome": zod.number().min(previewSimulationBodyInputsHouseholdIncomeMin).nullish(),
+  "objective": zod.enum(['required_tariff', 'chosen_tariff']).optional(),
+  "method": zod.enum(['reviewed', 'workbook_reference']).optional(),
+  "notes": zod.string().optional(),
+  "sourceNotes": zod.string().optional(),
+  "actions": zod.string().optional(),
+  "projects": zod.array(zod.object({
+  "id": zod.string(),
+  "name": zod.string(),
+  "year": zod.number().int(),
+  "amount": zod.number().min(previewSimulationBodyInputsProjectsItemAmountMin),
+  "grantPercent": zod.number().min(previewSimulationBodyInputsProjectsItemGrantPercentMin).max(previewSimulationBodyInputsProjectsItemGrantPercentMax),
+  "equityPercent": zod.number().min(previewSimulationBodyInputsProjectsItemEquityPercentMin).max(previewSimulationBodyInputsProjectsItemEquityPercentMax),
+  "interestRate": zod.number().min(previewSimulationBodyInputsProjectsItemInterestRateMin).max(previewSimulationBodyInputsProjectsItemInterestRateMax),
+  "loanTerm": zod.number().int().min(1).max(previewSimulationBodyInputsProjectsItemLoanTermMax),
+  "usefulLife": zod.number().int().min(1).max(previewSimulationBodyInputsProjectsItemUsefulLifeMax),
+  "graceYears": zod.number().int().min(previewSimulationBodyInputsProjectsItemGraceYearsMin).max(previewSimulationBodyInputsProjectsItemGraceYearsMax).optional(),
+  "source": zod.string().optional()
+})).optional(),
+  "observations": zod.array(zod.object({
+  "metric": zod.string(),
+  "value": zod.number().nullable(),
+  "unit": zod.string(),
+  "periodStart": zod.string(),
+  "periodEnd": zod.string(),
+  "quality": zod.enum(['Known', 'Estimated', 'Not available', 'Not applicable']),
+  "source": zod.string(),
+  "scope": zod.string()
+})).optional()
+})
+})
+
+export const previewSimulationResponseDefaultsInteractiveStaffPer1000Min = 0;
+
+export const previewSimulationResponseDefaultsInteractiveMonthlySalaryMin = 0;
+
+export const previewSimulationResponseDefaultsInteractivePayMonthsMin = 0;
+
+export const previewSimulationResponseDefaultsInteractiveChemicalUnitCostMin = 0;
+
+export const previewSimulationResponseDefaultsInteractiveMiscellaneousPercentMin = 0;
+
+export const previewSimulationResponseDefaultsInteractiveServiceFeePercentMin = 0;
+
+export const previewSimulationResponseDefaultsInteractiveBaselineCollectionPercentExclusiveMin = 0;
+export const previewSimulationResponseDefaultsInteractiveBaselineCollectionPercentMax = 100;
+
+export const previewSimulationResponseDefaultsInteractiveCollectionTargetMin = 0;
+export const previewSimulationResponseDefaultsInteractiveCollectionTargetMax = 100;
+
+export const previewSimulationResponseDefaultsInteractiveNrwTargetMin = 0;
+export const previewSimulationResponseDefaultsInteractiveNrwTargetExclusiveMax = 100;
+
+export const previewSimulationResponseDefaultsInteractiveOmSavingPercentMin = 0;
+export const previewSimulationResponseDefaultsInteractiveOmSavingPercentMax = 100;
+
+export const previewSimulationResponseDefaultsInteractiveProgrammeCostMin = 0;
+
+export const previewSimulationResponseDefaultsConnectionsMin = 0;
+
+export const previewSimulationResponseDefaultsHouseholdsMin = 0;
+
+export const previewSimulationResponseDefaultsServedHouseholdsMin = 0;
+
+export const previewSimulationResponseDefaultsProductionMin = 0;
+
+export const previewSimulationResponseDefaultsBilledVolumeMin = 0;
+
+export const previewSimulationResponseDefaultsBillingsMin = 0;
+
+export const previewSimulationResponseDefaultsCollectionsMin = 0;
+
+export const previewSimulationResponseDefaultsHistoricalOpexMin = 0;
+
+export const previewSimulationResponseDefaultsCurrentTariffMin = 0;
+
+export const previewSimulationResponseDefaultsConnectionGrowthMin = 0;
+export const previewSimulationResponseDefaultsConnectionGrowthMax = 100;
+
+export const previewSimulationResponseDefaultsForecastConnectionsMin = 0;
+
+export const previewSimulationResponseDefaultsConsumptionMin = 0;
+
+export const previewSimulationResponseDefaultsTargetNrwMin = 0;
+export const previewSimulationResponseDefaultsTargetNrwMax = 99.9;
+
+export const previewSimulationResponseDefaultsCapacityMin = 0;
+
+export const previewSimulationResponseDefaultsFutureOpexMin = 0;
+
+export const previewSimulationResponseDefaultsInflationMin = 0;
+export const previewSimulationResponseDefaultsInflationMax = 100;
+
+export const previewSimulationResponseDefaultsEnergyCostMin = 0;
+
+export const previewSimulationResponseDefaultsBulkWaterCostMin = 0;
+
+export const previewSimulationResponseDefaultsBulkWaterShareMin = 0;
+export const previewSimulationResponseDefaultsBulkWaterShareMax = 100;
+
+export const previewSimulationResponseDefaultsCollectionFactorMin = 0.01;
+export const previewSimulationResponseDefaultsCollectionFactorMax = 100;
+
+export const previewSimulationResponseDefaultsChosenTariffMin = 0;
+
+export const previewSimulationResponseDefaultsWorkingCapitalMonthsMin = 0;
+export const previewSimulationResponseDefaultsWorkingCapitalMonthsMax = 12;
+
+export const previewSimulationResponseDefaultsHouseholdIncomeMin = 0;
+
+export const previewSimulationResponseDefaultsProjectsItemAmountMin = 0;
+
+export const previewSimulationResponseDefaultsProjectsItemGrantPercentMin = 0;
+export const previewSimulationResponseDefaultsProjectsItemGrantPercentMax = 100;
+
+export const previewSimulationResponseDefaultsProjectsItemEquityPercentMin = 0;
+export const previewSimulationResponseDefaultsProjectsItemEquityPercentMax = 100;
+
+export const previewSimulationResponseDefaultsProjectsItemInterestRateMin = 0;
+export const previewSimulationResponseDefaultsProjectsItemInterestRateMax = 100;
+
+export const previewSimulationResponseDefaultsProjectsItemLoanTermMax = 50;
+
+export const previewSimulationResponseDefaultsProjectsItemUsefulLifeMax = 100;
+
+export const previewSimulationResponseDefaultsProjectsItemGraceYearsMin = 0;
+export const previewSimulationResponseDefaultsProjectsItemGraceYearsMax = 10;
+
+export const previewSimulationResponseInputsInteractiveStaffPer1000Min = 0;
+
+export const previewSimulationResponseInputsInteractiveMonthlySalaryMin = 0;
+
+export const previewSimulationResponseInputsInteractivePayMonthsMin = 0;
+
+export const previewSimulationResponseInputsInteractiveChemicalUnitCostMin = 0;
+
+export const previewSimulationResponseInputsInteractiveMiscellaneousPercentMin = 0;
+
+export const previewSimulationResponseInputsInteractiveServiceFeePercentMin = 0;
+
+export const previewSimulationResponseInputsInteractiveBaselineCollectionPercentExclusiveMin = 0;
+export const previewSimulationResponseInputsInteractiveBaselineCollectionPercentMax = 100;
+
+export const previewSimulationResponseInputsInteractiveCollectionTargetMin = 0;
+export const previewSimulationResponseInputsInteractiveCollectionTargetMax = 100;
+
+export const previewSimulationResponseInputsInteractiveNrwTargetMin = 0;
+export const previewSimulationResponseInputsInteractiveNrwTargetExclusiveMax = 100;
+
+export const previewSimulationResponseInputsInteractiveOmSavingPercentMin = 0;
+export const previewSimulationResponseInputsInteractiveOmSavingPercentMax = 100;
+
+export const previewSimulationResponseInputsInteractiveProgrammeCostMin = 0;
+
+export const previewSimulationResponseInputsConnectionsMin = 0;
+
+export const previewSimulationResponseInputsHouseholdsMin = 0;
+
+export const previewSimulationResponseInputsServedHouseholdsMin = 0;
+
+export const previewSimulationResponseInputsProductionMin = 0;
+
+export const previewSimulationResponseInputsBilledVolumeMin = 0;
+
+export const previewSimulationResponseInputsBillingsMin = 0;
+
+export const previewSimulationResponseInputsCollectionsMin = 0;
+
+export const previewSimulationResponseInputsHistoricalOpexMin = 0;
+
+export const previewSimulationResponseInputsCurrentTariffMin = 0;
+
+export const previewSimulationResponseInputsConnectionGrowthMin = 0;
+export const previewSimulationResponseInputsConnectionGrowthMax = 100;
+
+export const previewSimulationResponseInputsForecastConnectionsMin = 0;
+
+export const previewSimulationResponseInputsConsumptionMin = 0;
+
+export const previewSimulationResponseInputsTargetNrwMin = 0;
+export const previewSimulationResponseInputsTargetNrwMax = 99.9;
+
+export const previewSimulationResponseInputsCapacityMin = 0;
+
+export const previewSimulationResponseInputsFutureOpexMin = 0;
+
+export const previewSimulationResponseInputsInflationMin = 0;
+export const previewSimulationResponseInputsInflationMax = 100;
+
+export const previewSimulationResponseInputsEnergyCostMin = 0;
+
+export const previewSimulationResponseInputsBulkWaterCostMin = 0;
+
+export const previewSimulationResponseInputsBulkWaterShareMin = 0;
+export const previewSimulationResponseInputsBulkWaterShareMax = 100;
+
+export const previewSimulationResponseInputsCollectionFactorMin = 0.01;
+export const previewSimulationResponseInputsCollectionFactorMax = 100;
+
+export const previewSimulationResponseInputsChosenTariffMin = 0;
+
+export const previewSimulationResponseInputsWorkingCapitalMonthsMin = 0;
+export const previewSimulationResponseInputsWorkingCapitalMonthsMax = 12;
+
+export const previewSimulationResponseInputsHouseholdIncomeMin = 0;
+
+export const previewSimulationResponseInputsProjectsItemAmountMin = 0;
+
+export const previewSimulationResponseInputsProjectsItemGrantPercentMin = 0;
+export const previewSimulationResponseInputsProjectsItemGrantPercentMax = 100;
+
+export const previewSimulationResponseInputsProjectsItemEquityPercentMin = 0;
+export const previewSimulationResponseInputsProjectsItemEquityPercentMax = 100;
+
+export const previewSimulationResponseInputsProjectsItemInterestRateMin = 0;
+export const previewSimulationResponseInputsProjectsItemInterestRateMax = 100;
+
+export const previewSimulationResponseInputsProjectsItemLoanTermMax = 50;
+
+export const previewSimulationResponseInputsProjectsItemUsefulLifeMax = 100;
+
+export const previewSimulationResponseInputsProjectsItemGraceYearsMin = 0;
+export const previewSimulationResponseInputsProjectsItemGraceYearsMax = 10;
+
+
+
+export const PreviewSimulationResponse = zod.object({
+  "result": zod.object({
+  "baseline": zod.array(zod.object({
+  "year": zod.number().int(),
+  "fixedOpex": zod.number().nullable(),
+  "variableOpex": zod.number().nullable(),
+  "opex": zod.number().nullable(),
+  "depreciation": zod.number().nullable(),
+  "workingCapital": zod.number().nullable(),
+  "requiredRevenue": zod.number().nullable(),
+  "workbookVolume": zod.number().nullable(),
+  "workbookTariff": zod.number().nullable(),
+  "utilityConnections": zod.number().nullable(),
+  "utilityBilledVolume": zod.number().nullable(),
+  "systemInput": zod.number().nullable(),
+  "appliedTariff": zod.number().nullable(),
+  "collectionPercent": zod.number().nullable(),
+  "grossBillings": zod.number().nullable(),
+  "collections": zod.number().nullable(),
+  "cashOmCoverage": zod.number().nullable(),
+  "operatingBalance": zod.number().nullable(),
+  "targetBalance": zod.number().nullable(),
+  "targetCollectionTariff": zod.number().nullable()
+})),
+  "improved": zod.array(zod.object({
+  "year": zod.number().int(),
+  "fixedOpex": zod.number().nullable(),
+  "variableOpex": zod.number().nullable(),
+  "opex": zod.number().nullable(),
+  "depreciation": zod.number().nullable(),
+  "workingCapital": zod.number().nullable(),
+  "requiredRevenue": zod.number().nullable(),
+  "workbookVolume": zod.number().nullable(),
+  "workbookTariff": zod.number().nullable(),
+  "utilityConnections": zod.number().nullable(),
+  "utilityBilledVolume": zod.number().nullable(),
+  "systemInput": zod.number().nullable(),
+  "appliedTariff": zod.number().nullable(),
+  "collectionPercent": zod.number().nullable(),
+  "grossBillings": zod.number().nullable(),
+  "collections": zod.number().nullable(),
+  "cashOmCoverage": zod.number().nullable(),
+  "operatingBalance": zod.number().nullable(),
+  "targetBalance": zod.number().nullable(),
+  "targetCollectionTariff": zod.number().nullable()
+})),
+  "calibration": zod.object({
+  "baselineCollectionPercent": zod.number().nullable(),
+  "impliedHistoricalBillings": zod.number().nullable(),
+  "inferredAverageTariff": zod.number().nullable(),
+  "appliedTariff": zod.number().nullable(),
+  "baselineNrw": zod.number().nullable(),
+  "historicalMonths": zod.number().nullable()
+}),
+  "warnings": zod.array(zod.string())
+}),
+  "original": zod.array(zod.object({
+  "year": zod.number().int(),
+  "fixedOpex": zod.number().nullable(),
+  "variableOpex": zod.number().nullable(),
+  "opex": zod.number().nullable(),
+  "depreciation": zod.number().nullable(),
+  "workingCapital": zod.number().nullable(),
+  "requiredRevenue": zod.number().nullable(),
+  "workbookVolume": zod.number().nullable(),
+  "workbookTariff": zod.number().nullable(),
+  "utilityConnections": zod.number().nullable(),
+  "utilityBilledVolume": zod.number().nullable(),
+  "systemInput": zod.number().nullable(),
+  "appliedTariff": zod.number().nullable(),
+  "collectionPercent": zod.number().nullable(),
+  "grossBillings": zod.number().nullable(),
+  "collections": zod.number().nullable(),
+  "cashOmCoverage": zod.number().nullable(),
+  "operatingBalance": zod.number().nullable(),
+  "targetBalance": zod.number().nullable(),
+  "targetCollectionTariff": zod.number().nullable()
+})),
+  "defaults": zod.object({
+  "interactive": zod.object({
+  "staffPer1000": zod.number().min(previewSimulationResponseDefaultsInteractiveStaffPer1000Min).nullish(),
+  "monthlySalary": zod.number().min(previewSimulationResponseDefaultsInteractiveMonthlySalaryMin).nullish(),
+  "payMonths": zod.number().min(previewSimulationResponseDefaultsInteractivePayMonthsMin).nullish(),
+  "chemicalUnitCost": zod.number().min(previewSimulationResponseDefaultsInteractiveChemicalUnitCostMin).nullish(),
+  "miscellaneousPercent": zod.number().min(previewSimulationResponseDefaultsInteractiveMiscellaneousPercentMin).nullish(),
+  "serviceFeePercent": zod.number().min(previewSimulationResponseDefaultsInteractiveServiceFeePercentMin).nullish(),
+  "baselineCollectionPercent": zod.number().gt(previewSimulationResponseDefaultsInteractiveBaselineCollectionPercentExclusiveMin).max(previewSimulationResponseDefaultsInteractiveBaselineCollectionPercentMax).nullish(),
+  "appliedTariffSource": zod.enum(['inferred', 'manual']).optional(),
+  "collectEnabled": zod.boolean().optional(),
+  "collectionTarget": zod.number().min(previewSimulationResponseDefaultsInteractiveCollectionTargetMin).max(previewSimulationResponseDefaultsInteractiveCollectionTargetMax).nullish(),
+  "nrwEnabled": zod.boolean().optional(),
+  "nrwTarget": zod.number().min(previewSimulationResponseDefaultsInteractiveNrwTargetMin).lt(previewSimulationResponseDefaultsInteractiveNrwTargetExclusiveMax).nullish(),
+  "omEnabled": zod.boolean().optional(),
+  "omSavingPercent": zod.number().min(previewSimulationResponseDefaultsInteractiveOmSavingPercentMin).max(previewSimulationResponseDefaultsInteractiveOmSavingPercentMax).nullish(),
+  "programmeCost": zod.number().min(previewSimulationResponseDefaultsInteractiveProgrammeCostMin).nullish()
+}).optional(),
+  "historicalStart": zod.string().optional(),
+  "historicalEnd": zod.string().optional(),
+  "connections": zod.number().min(previewSimulationResponseDefaultsConnectionsMin).nullish(),
+  "households": zod.number().min(previewSimulationResponseDefaultsHouseholdsMin).nullish(),
+  "servedHouseholds": zod.number().min(previewSimulationResponseDefaultsServedHouseholdsMin).nullish(),
+  "production": zod.number().min(previewSimulationResponseDefaultsProductionMin).nullish(),
+  "billedVolume": zod.number().min(previewSimulationResponseDefaultsBilledVolumeMin).nullish(),
+  "billings": zod.number().min(previewSimulationResponseDefaultsBillingsMin).nullish(),
+  "collections": zod.number().min(previewSimulationResponseDefaultsCollectionsMin).nullish(),
+  "historicalOpex": zod.number().min(previewSimulationResponseDefaultsHistoricalOpexMin).nullish(),
+  "currentTariff": zod.number().min(previewSimulationResponseDefaultsCurrentTariffMin).nullish(),
+  "connectionGrowth": zod.number().min(previewSimulationResponseDefaultsConnectionGrowthMin).max(previewSimulationResponseDefaultsConnectionGrowthMax).nullish(),
+  "forecastConnections": zod.number().min(previewSimulationResponseDefaultsForecastConnectionsMin).nullish(),
+  "consumption": zod.number().min(previewSimulationResponseDefaultsConsumptionMin).nullish(),
+  "targetNrw": zod.number().min(previewSimulationResponseDefaultsTargetNrwMin).max(previewSimulationResponseDefaultsTargetNrwMax).nullish(),
+  "capacity": zod.number().min(previewSimulationResponseDefaultsCapacityMin).nullish(),
+  "futureOpex": zod.number().min(previewSimulationResponseDefaultsFutureOpexMin).nullish(),
+  "inflation": zod.number().min(previewSimulationResponseDefaultsInflationMin).max(previewSimulationResponseDefaultsInflationMax).nullish(),
+  "energyCost": zod.number().min(previewSimulationResponseDefaultsEnergyCostMin).nullish(),
+  "bulkWaterCost": zod.number().min(previewSimulationResponseDefaultsBulkWaterCostMin).nullish(),
+  "bulkWaterShare": zod.number().min(previewSimulationResponseDefaultsBulkWaterShareMin).max(previewSimulationResponseDefaultsBulkWaterShareMax).nullish(),
+  "openingCash": zod.number().nullish(),
+  "collectionFactor": zod.number().min(previewSimulationResponseDefaultsCollectionFactorMin).max(previewSimulationResponseDefaultsCollectionFactorMax).nullish(),
+  "chosenTariff": zod.number().min(previewSimulationResponseDefaultsChosenTariffMin).nullish(),
+  "workingCapitalMonths": zod.number().min(previewSimulationResponseDefaultsWorkingCapitalMonthsMin).max(previewSimulationResponseDefaultsWorkingCapitalMonthsMax).nullish(),
+  "householdIncome": zod.number().min(previewSimulationResponseDefaultsHouseholdIncomeMin).nullish(),
+  "objective": zod.enum(['required_tariff', 'chosen_tariff']).optional(),
+  "method": zod.enum(['reviewed', 'workbook_reference']).optional(),
+  "notes": zod.string().optional(),
+  "sourceNotes": zod.string().optional(),
+  "actions": zod.string().optional(),
+  "projects": zod.array(zod.object({
+  "id": zod.string(),
+  "name": zod.string(),
+  "year": zod.number().int(),
+  "amount": zod.number().min(previewSimulationResponseDefaultsProjectsItemAmountMin),
+  "grantPercent": zod.number().min(previewSimulationResponseDefaultsProjectsItemGrantPercentMin).max(previewSimulationResponseDefaultsProjectsItemGrantPercentMax),
+  "equityPercent": zod.number().min(previewSimulationResponseDefaultsProjectsItemEquityPercentMin).max(previewSimulationResponseDefaultsProjectsItemEquityPercentMax),
+  "interestRate": zod.number().min(previewSimulationResponseDefaultsProjectsItemInterestRateMin).max(previewSimulationResponseDefaultsProjectsItemInterestRateMax),
+  "loanTerm": zod.number().int().min(1).max(previewSimulationResponseDefaultsProjectsItemLoanTermMax),
+  "usefulLife": zod.number().int().min(1).max(previewSimulationResponseDefaultsProjectsItemUsefulLifeMax),
+  "graceYears": zod.number().int().min(previewSimulationResponseDefaultsProjectsItemGraceYearsMin).max(previewSimulationResponseDefaultsProjectsItemGraceYearsMax).optional(),
+  "source": zod.string().optional()
+})).optional(),
+  "observations": zod.array(zod.object({
+  "metric": zod.string(),
+  "value": zod.number().nullable(),
+  "unit": zod.string(),
+  "periodStart": zod.string(),
+  "periodEnd": zod.string(),
+  "quality": zod.enum(['Known', 'Estimated', 'Not available', 'Not applicable']),
+  "source": zod.string(),
+  "scope": zod.string()
+})).optional()
+}),
+  "inputs": zod.object({
+  "interactive": zod.object({
+  "staffPer1000": zod.number().min(previewSimulationResponseInputsInteractiveStaffPer1000Min).nullish(),
+  "monthlySalary": zod.number().min(previewSimulationResponseInputsInteractiveMonthlySalaryMin).nullish(),
+  "payMonths": zod.number().min(previewSimulationResponseInputsInteractivePayMonthsMin).nullish(),
+  "chemicalUnitCost": zod.number().min(previewSimulationResponseInputsInteractiveChemicalUnitCostMin).nullish(),
+  "miscellaneousPercent": zod.number().min(previewSimulationResponseInputsInteractiveMiscellaneousPercentMin).nullish(),
+  "serviceFeePercent": zod.number().min(previewSimulationResponseInputsInteractiveServiceFeePercentMin).nullish(),
+  "baselineCollectionPercent": zod.number().gt(previewSimulationResponseInputsInteractiveBaselineCollectionPercentExclusiveMin).max(previewSimulationResponseInputsInteractiveBaselineCollectionPercentMax).nullish(),
+  "appliedTariffSource": zod.enum(['inferred', 'manual']).optional(),
+  "collectEnabled": zod.boolean().optional(),
+  "collectionTarget": zod.number().min(previewSimulationResponseInputsInteractiveCollectionTargetMin).max(previewSimulationResponseInputsInteractiveCollectionTargetMax).nullish(),
+  "nrwEnabled": zod.boolean().optional(),
+  "nrwTarget": zod.number().min(previewSimulationResponseInputsInteractiveNrwTargetMin).lt(previewSimulationResponseInputsInteractiveNrwTargetExclusiveMax).nullish(),
+  "omEnabled": zod.boolean().optional(),
+  "omSavingPercent": zod.number().min(previewSimulationResponseInputsInteractiveOmSavingPercentMin).max(previewSimulationResponseInputsInteractiveOmSavingPercentMax).nullish(),
+  "programmeCost": zod.number().min(previewSimulationResponseInputsInteractiveProgrammeCostMin).nullish()
+}).optional(),
+  "historicalStart": zod.string().optional(),
+  "historicalEnd": zod.string().optional(),
+  "connections": zod.number().min(previewSimulationResponseInputsConnectionsMin).nullish(),
+  "households": zod.number().min(previewSimulationResponseInputsHouseholdsMin).nullish(),
+  "servedHouseholds": zod.number().min(previewSimulationResponseInputsServedHouseholdsMin).nullish(),
+  "production": zod.number().min(previewSimulationResponseInputsProductionMin).nullish(),
+  "billedVolume": zod.number().min(previewSimulationResponseInputsBilledVolumeMin).nullish(),
+  "billings": zod.number().min(previewSimulationResponseInputsBillingsMin).nullish(),
+  "collections": zod.number().min(previewSimulationResponseInputsCollectionsMin).nullish(),
+  "historicalOpex": zod.number().min(previewSimulationResponseInputsHistoricalOpexMin).nullish(),
+  "currentTariff": zod.number().min(previewSimulationResponseInputsCurrentTariffMin).nullish(),
+  "connectionGrowth": zod.number().min(previewSimulationResponseInputsConnectionGrowthMin).max(previewSimulationResponseInputsConnectionGrowthMax).nullish(),
+  "forecastConnections": zod.number().min(previewSimulationResponseInputsForecastConnectionsMin).nullish(),
+  "consumption": zod.number().min(previewSimulationResponseInputsConsumptionMin).nullish(),
+  "targetNrw": zod.number().min(previewSimulationResponseInputsTargetNrwMin).max(previewSimulationResponseInputsTargetNrwMax).nullish(),
+  "capacity": zod.number().min(previewSimulationResponseInputsCapacityMin).nullish(),
+  "futureOpex": zod.number().min(previewSimulationResponseInputsFutureOpexMin).nullish(),
+  "inflation": zod.number().min(previewSimulationResponseInputsInflationMin).max(previewSimulationResponseInputsInflationMax).nullish(),
+  "energyCost": zod.number().min(previewSimulationResponseInputsEnergyCostMin).nullish(),
+  "bulkWaterCost": zod.number().min(previewSimulationResponseInputsBulkWaterCostMin).nullish(),
+  "bulkWaterShare": zod.number().min(previewSimulationResponseInputsBulkWaterShareMin).max(previewSimulationResponseInputsBulkWaterShareMax).nullish(),
+  "openingCash": zod.number().nullish(),
+  "collectionFactor": zod.number().min(previewSimulationResponseInputsCollectionFactorMin).max(previewSimulationResponseInputsCollectionFactorMax).nullish(),
+  "chosenTariff": zod.number().min(previewSimulationResponseInputsChosenTariffMin).nullish(),
+  "workingCapitalMonths": zod.number().min(previewSimulationResponseInputsWorkingCapitalMonthsMin).max(previewSimulationResponseInputsWorkingCapitalMonthsMax).nullish(),
+  "householdIncome": zod.number().min(previewSimulationResponseInputsHouseholdIncomeMin).nullish(),
+  "objective": zod.enum(['required_tariff', 'chosen_tariff']).optional(),
+  "method": zod.enum(['reviewed', 'workbook_reference']).optional(),
+  "notes": zod.string().optional(),
+  "sourceNotes": zod.string().optional(),
+  "actions": zod.string().optional(),
+  "projects": zod.array(zod.object({
+  "id": zod.string(),
+  "name": zod.string(),
+  "year": zod.number().int(),
+  "amount": zod.number().min(previewSimulationResponseInputsProjectsItemAmountMin),
+  "grantPercent": zod.number().min(previewSimulationResponseInputsProjectsItemGrantPercentMin).max(previewSimulationResponseInputsProjectsItemGrantPercentMax),
+  "equityPercent": zod.number().min(previewSimulationResponseInputsProjectsItemEquityPercentMin).max(previewSimulationResponseInputsProjectsItemEquityPercentMax),
+  "interestRate": zod.number().min(previewSimulationResponseInputsProjectsItemInterestRateMin).max(previewSimulationResponseInputsProjectsItemInterestRateMax),
+  "loanTerm": zod.number().int().min(1).max(previewSimulationResponseInputsProjectsItemLoanTermMax),
+  "usefulLife": zod.number().int().min(1).max(previewSimulationResponseInputsProjectsItemUsefulLifeMax),
+  "graceYears": zod.number().int().min(previewSimulationResponseInputsProjectsItemGraceYearsMin).max(previewSimulationResponseInputsProjectsItemGraceYearsMax).optional(),
+  "source": zod.string().optional()
+})).optional(),
+  "observations": zod.array(zod.object({
+  "metric": zod.string(),
+  "value": zod.number().nullable(),
+  "unit": zod.string(),
+  "periodStart": zod.string(),
+  "periodEnd": zod.string(),
+  "quality": zod.enum(['Known', 'Estimated', 'Not available', 'Not applicable']),
+  "source": zod.string(),
+  "scope": zod.string()
+})).optional()
+}),
+  "demoEligible": zod.boolean(),
+  "supported": zod.boolean()
+})
+
+
+export const listSimulationsResponseInputsInteractiveStaffPer1000Min = 0;
+
+export const listSimulationsResponseInputsInteractiveMonthlySalaryMin = 0;
+
+export const listSimulationsResponseInputsInteractivePayMonthsMin = 0;
+
+export const listSimulationsResponseInputsInteractiveChemicalUnitCostMin = 0;
+
+export const listSimulationsResponseInputsInteractiveMiscellaneousPercentMin = 0;
+
+export const listSimulationsResponseInputsInteractiveServiceFeePercentMin = 0;
+
+export const listSimulationsResponseInputsInteractiveBaselineCollectionPercentExclusiveMin = 0;
+export const listSimulationsResponseInputsInteractiveBaselineCollectionPercentMax = 100;
+
+export const listSimulationsResponseInputsInteractiveCollectionTargetMin = 0;
+export const listSimulationsResponseInputsInteractiveCollectionTargetMax = 100;
+
+export const listSimulationsResponseInputsInteractiveNrwTargetMin = 0;
+export const listSimulationsResponseInputsInteractiveNrwTargetExclusiveMax = 100;
+
+export const listSimulationsResponseInputsInteractiveOmSavingPercentMin = 0;
+export const listSimulationsResponseInputsInteractiveOmSavingPercentMax = 100;
+
+export const listSimulationsResponseInputsInteractiveProgrammeCostMin = 0;
+
 export const listSimulationsResponseInputsConnectionsMin = 0;
 
 export const listSimulationsResponseInputsHouseholdsMin = 0;
@@ -89,6 +732,23 @@ export const ListSimulationsResponseItem = zod.object({
   "currency": zod.string(),
   "version": zod.number().int(),
   "inputs": zod.object({
+  "interactive": zod.object({
+  "staffPer1000": zod.number().min(listSimulationsResponseInputsInteractiveStaffPer1000Min).nullish(),
+  "monthlySalary": zod.number().min(listSimulationsResponseInputsInteractiveMonthlySalaryMin).nullish(),
+  "payMonths": zod.number().min(listSimulationsResponseInputsInteractivePayMonthsMin).nullish(),
+  "chemicalUnitCost": zod.number().min(listSimulationsResponseInputsInteractiveChemicalUnitCostMin).nullish(),
+  "miscellaneousPercent": zod.number().min(listSimulationsResponseInputsInteractiveMiscellaneousPercentMin).nullish(),
+  "serviceFeePercent": zod.number().min(listSimulationsResponseInputsInteractiveServiceFeePercentMin).nullish(),
+  "baselineCollectionPercent": zod.number().gt(listSimulationsResponseInputsInteractiveBaselineCollectionPercentExclusiveMin).max(listSimulationsResponseInputsInteractiveBaselineCollectionPercentMax).nullish(),
+  "appliedTariffSource": zod.enum(['inferred', 'manual']).optional(),
+  "collectEnabled": zod.boolean().optional(),
+  "collectionTarget": zod.number().min(listSimulationsResponseInputsInteractiveCollectionTargetMin).max(listSimulationsResponseInputsInteractiveCollectionTargetMax).nullish(),
+  "nrwEnabled": zod.boolean().optional(),
+  "nrwTarget": zod.number().min(listSimulationsResponseInputsInteractiveNrwTargetMin).lt(listSimulationsResponseInputsInteractiveNrwTargetExclusiveMax).nullish(),
+  "omEnabled": zod.boolean().optional(),
+  "omSavingPercent": zod.number().min(listSimulationsResponseInputsInteractiveOmSavingPercentMin).max(listSimulationsResponseInputsInteractiveOmSavingPercentMax).nullish(),
+  "programmeCost": zod.number().min(listSimulationsResponseInputsInteractiveProgrammeCostMin).nullish()
+}).optional(),
   "historicalStart": zod.string().optional(),
   "historicalEnd": zod.string().optional(),
   "connections": zod.number().min(listSimulationsResponseInputsConnectionsMin).nullish(),
@@ -175,6 +835,32 @@ export const CreateSimulationBody = zod.object({
   "currency": zod.string().default(createSimulationBodyCurrencyDefault)
 })
 
+export const createSimulationResponseInputsInteractiveStaffPer1000Min = 0;
+
+export const createSimulationResponseInputsInteractiveMonthlySalaryMin = 0;
+
+export const createSimulationResponseInputsInteractivePayMonthsMin = 0;
+
+export const createSimulationResponseInputsInteractiveChemicalUnitCostMin = 0;
+
+export const createSimulationResponseInputsInteractiveMiscellaneousPercentMin = 0;
+
+export const createSimulationResponseInputsInteractiveServiceFeePercentMin = 0;
+
+export const createSimulationResponseInputsInteractiveBaselineCollectionPercentExclusiveMin = 0;
+export const createSimulationResponseInputsInteractiveBaselineCollectionPercentMax = 100;
+
+export const createSimulationResponseInputsInteractiveCollectionTargetMin = 0;
+export const createSimulationResponseInputsInteractiveCollectionTargetMax = 100;
+
+export const createSimulationResponseInputsInteractiveNrwTargetMin = 0;
+export const createSimulationResponseInputsInteractiveNrwTargetExclusiveMax = 100;
+
+export const createSimulationResponseInputsInteractiveOmSavingPercentMin = 0;
+export const createSimulationResponseInputsInteractiveOmSavingPercentMax = 100;
+
+export const createSimulationResponseInputsInteractiveProgrammeCostMin = 0;
+
 export const createSimulationResponseInputsConnectionsMin = 0;
 
 export const createSimulationResponseInputsHouseholdsMin = 0;
@@ -256,6 +942,23 @@ export const CreateSimulationResponse = zod.object({
   "currency": zod.string(),
   "version": zod.number().int(),
   "inputs": zod.object({
+  "interactive": zod.object({
+  "staffPer1000": zod.number().min(createSimulationResponseInputsInteractiveStaffPer1000Min).nullish(),
+  "monthlySalary": zod.number().min(createSimulationResponseInputsInteractiveMonthlySalaryMin).nullish(),
+  "payMonths": zod.number().min(createSimulationResponseInputsInteractivePayMonthsMin).nullish(),
+  "chemicalUnitCost": zod.number().min(createSimulationResponseInputsInteractiveChemicalUnitCostMin).nullish(),
+  "miscellaneousPercent": zod.number().min(createSimulationResponseInputsInteractiveMiscellaneousPercentMin).nullish(),
+  "serviceFeePercent": zod.number().min(createSimulationResponseInputsInteractiveServiceFeePercentMin).nullish(),
+  "baselineCollectionPercent": zod.number().gt(createSimulationResponseInputsInteractiveBaselineCollectionPercentExclusiveMin).max(createSimulationResponseInputsInteractiveBaselineCollectionPercentMax).nullish(),
+  "appliedTariffSource": zod.enum(['inferred', 'manual']).optional(),
+  "collectEnabled": zod.boolean().optional(),
+  "collectionTarget": zod.number().min(createSimulationResponseInputsInteractiveCollectionTargetMin).max(createSimulationResponseInputsInteractiveCollectionTargetMax).nullish(),
+  "nrwEnabled": zod.boolean().optional(),
+  "nrwTarget": zod.number().min(createSimulationResponseInputsInteractiveNrwTargetMin).lt(createSimulationResponseInputsInteractiveNrwTargetExclusiveMax).nullish(),
+  "omEnabled": zod.boolean().optional(),
+  "omSavingPercent": zod.number().min(createSimulationResponseInputsInteractiveOmSavingPercentMin).max(createSimulationResponseInputsInteractiveOmSavingPercentMax).nullish(),
+  "programmeCost": zod.number().min(createSimulationResponseInputsInteractiveProgrammeCostMin).nullish()
+}).optional(),
   "historicalStart": zod.string().optional(),
   "historicalEnd": zod.string().optional(),
   "connections": zod.number().min(createSimulationResponseInputsConnectionsMin).nullish(),
@@ -324,6 +1027,32 @@ export const CreateSimulationResponse = zod.object({
 export const GetSimulationParams = zod.object({
   "id": zod.coerce.string()
 })
+
+export const getSimulationResponseInputsInteractiveStaffPer1000Min = 0;
+
+export const getSimulationResponseInputsInteractiveMonthlySalaryMin = 0;
+
+export const getSimulationResponseInputsInteractivePayMonthsMin = 0;
+
+export const getSimulationResponseInputsInteractiveChemicalUnitCostMin = 0;
+
+export const getSimulationResponseInputsInteractiveMiscellaneousPercentMin = 0;
+
+export const getSimulationResponseInputsInteractiveServiceFeePercentMin = 0;
+
+export const getSimulationResponseInputsInteractiveBaselineCollectionPercentExclusiveMin = 0;
+export const getSimulationResponseInputsInteractiveBaselineCollectionPercentMax = 100;
+
+export const getSimulationResponseInputsInteractiveCollectionTargetMin = 0;
+export const getSimulationResponseInputsInteractiveCollectionTargetMax = 100;
+
+export const getSimulationResponseInputsInteractiveNrwTargetMin = 0;
+export const getSimulationResponseInputsInteractiveNrwTargetExclusiveMax = 100;
+
+export const getSimulationResponseInputsInteractiveOmSavingPercentMin = 0;
+export const getSimulationResponseInputsInteractiveOmSavingPercentMax = 100;
+
+export const getSimulationResponseInputsInteractiveProgrammeCostMin = 0;
 
 export const getSimulationResponseInputsConnectionsMin = 0;
 
@@ -406,6 +1135,23 @@ export const GetSimulationResponse = zod.object({
   "currency": zod.string(),
   "version": zod.number().int(),
   "inputs": zod.object({
+  "interactive": zod.object({
+  "staffPer1000": zod.number().min(getSimulationResponseInputsInteractiveStaffPer1000Min).nullish(),
+  "monthlySalary": zod.number().min(getSimulationResponseInputsInteractiveMonthlySalaryMin).nullish(),
+  "payMonths": zod.number().min(getSimulationResponseInputsInteractivePayMonthsMin).nullish(),
+  "chemicalUnitCost": zod.number().min(getSimulationResponseInputsInteractiveChemicalUnitCostMin).nullish(),
+  "miscellaneousPercent": zod.number().min(getSimulationResponseInputsInteractiveMiscellaneousPercentMin).nullish(),
+  "serviceFeePercent": zod.number().min(getSimulationResponseInputsInteractiveServiceFeePercentMin).nullish(),
+  "baselineCollectionPercent": zod.number().gt(getSimulationResponseInputsInteractiveBaselineCollectionPercentExclusiveMin).max(getSimulationResponseInputsInteractiveBaselineCollectionPercentMax).nullish(),
+  "appliedTariffSource": zod.enum(['inferred', 'manual']).optional(),
+  "collectEnabled": zod.boolean().optional(),
+  "collectionTarget": zod.number().min(getSimulationResponseInputsInteractiveCollectionTargetMin).max(getSimulationResponseInputsInteractiveCollectionTargetMax).nullish(),
+  "nrwEnabled": zod.boolean().optional(),
+  "nrwTarget": zod.number().min(getSimulationResponseInputsInteractiveNrwTargetMin).lt(getSimulationResponseInputsInteractiveNrwTargetExclusiveMax).nullish(),
+  "omEnabled": zod.boolean().optional(),
+  "omSavingPercent": zod.number().min(getSimulationResponseInputsInteractiveOmSavingPercentMin).max(getSimulationResponseInputsInteractiveOmSavingPercentMax).nullish(),
+  "programmeCost": zod.number().min(getSimulationResponseInputsInteractiveProgrammeCostMin).nullish()
+}).optional(),
   "historicalStart": zod.string().optional(),
   "historicalEnd": zod.string().optional(),
   "connections": zod.number().min(getSimulationResponseInputsConnectionsMin).nullish(),
@@ -484,6 +1230,32 @@ export const updateSimulationBodyStartYearMax = 2100;
 
 export const updateSimulationBodyEndYearMin = 2020;
 export const updateSimulationBodyEndYearMax = 2100;
+
+export const updateSimulationBodyInputsInteractiveStaffPer1000Min = 0;
+
+export const updateSimulationBodyInputsInteractiveMonthlySalaryMin = 0;
+
+export const updateSimulationBodyInputsInteractivePayMonthsMin = 0;
+
+export const updateSimulationBodyInputsInteractiveChemicalUnitCostMin = 0;
+
+export const updateSimulationBodyInputsInteractiveMiscellaneousPercentMin = 0;
+
+export const updateSimulationBodyInputsInteractiveServiceFeePercentMin = 0;
+
+export const updateSimulationBodyInputsInteractiveBaselineCollectionPercentExclusiveMin = 0;
+export const updateSimulationBodyInputsInteractiveBaselineCollectionPercentMax = 100;
+
+export const updateSimulationBodyInputsInteractiveCollectionTargetMin = 0;
+export const updateSimulationBodyInputsInteractiveCollectionTargetMax = 100;
+
+export const updateSimulationBodyInputsInteractiveNrwTargetMin = 0;
+export const updateSimulationBodyInputsInteractiveNrwTargetExclusiveMax = 100;
+
+export const updateSimulationBodyInputsInteractiveOmSavingPercentMin = 0;
+export const updateSimulationBodyInputsInteractiveOmSavingPercentMax = 100;
+
+export const updateSimulationBodyInputsInteractiveProgrammeCostMin = 0;
 
 export const updateSimulationBodyInputsConnectionsMin = 0;
 
@@ -565,6 +1337,23 @@ export const UpdateSimulationBody = zod.object({
   "currency": zod.string(),
   "version": zod.number().int(),
   "inputs": zod.object({
+  "interactive": zod.object({
+  "staffPer1000": zod.number().min(updateSimulationBodyInputsInteractiveStaffPer1000Min).nullish(),
+  "monthlySalary": zod.number().min(updateSimulationBodyInputsInteractiveMonthlySalaryMin).nullish(),
+  "payMonths": zod.number().min(updateSimulationBodyInputsInteractivePayMonthsMin).nullish(),
+  "chemicalUnitCost": zod.number().min(updateSimulationBodyInputsInteractiveChemicalUnitCostMin).nullish(),
+  "miscellaneousPercent": zod.number().min(updateSimulationBodyInputsInteractiveMiscellaneousPercentMin).nullish(),
+  "serviceFeePercent": zod.number().min(updateSimulationBodyInputsInteractiveServiceFeePercentMin).nullish(),
+  "baselineCollectionPercent": zod.number().gt(updateSimulationBodyInputsInteractiveBaselineCollectionPercentExclusiveMin).max(updateSimulationBodyInputsInteractiveBaselineCollectionPercentMax).nullish(),
+  "appliedTariffSource": zod.enum(['inferred', 'manual']).optional(),
+  "collectEnabled": zod.boolean().optional(),
+  "collectionTarget": zod.number().min(updateSimulationBodyInputsInteractiveCollectionTargetMin).max(updateSimulationBodyInputsInteractiveCollectionTargetMax).nullish(),
+  "nrwEnabled": zod.boolean().optional(),
+  "nrwTarget": zod.number().min(updateSimulationBodyInputsInteractiveNrwTargetMin).lt(updateSimulationBodyInputsInteractiveNrwTargetExclusiveMax).nullish(),
+  "omEnabled": zod.boolean().optional(),
+  "omSavingPercent": zod.number().min(updateSimulationBodyInputsInteractiveOmSavingPercentMin).max(updateSimulationBodyInputsInteractiveOmSavingPercentMax).nullish(),
+  "programmeCost": zod.number().min(updateSimulationBodyInputsInteractiveProgrammeCostMin).nullish()
+}).optional(),
   "historicalStart": zod.string().optional(),
   "historicalEnd": zod.string().optional(),
   "connections": zod.number().min(updateSimulationBodyInputsConnectionsMin).nullish(),
@@ -621,6 +1410,32 @@ export const UpdateSimulationBody = zod.object({
 })).optional()
 })
 })
+
+export const updateSimulationResponseInputsInteractiveStaffPer1000Min = 0;
+
+export const updateSimulationResponseInputsInteractiveMonthlySalaryMin = 0;
+
+export const updateSimulationResponseInputsInteractivePayMonthsMin = 0;
+
+export const updateSimulationResponseInputsInteractiveChemicalUnitCostMin = 0;
+
+export const updateSimulationResponseInputsInteractiveMiscellaneousPercentMin = 0;
+
+export const updateSimulationResponseInputsInteractiveServiceFeePercentMin = 0;
+
+export const updateSimulationResponseInputsInteractiveBaselineCollectionPercentExclusiveMin = 0;
+export const updateSimulationResponseInputsInteractiveBaselineCollectionPercentMax = 100;
+
+export const updateSimulationResponseInputsInteractiveCollectionTargetMin = 0;
+export const updateSimulationResponseInputsInteractiveCollectionTargetMax = 100;
+
+export const updateSimulationResponseInputsInteractiveNrwTargetMin = 0;
+export const updateSimulationResponseInputsInteractiveNrwTargetExclusiveMax = 100;
+
+export const updateSimulationResponseInputsInteractiveOmSavingPercentMin = 0;
+export const updateSimulationResponseInputsInteractiveOmSavingPercentMax = 100;
+
+export const updateSimulationResponseInputsInteractiveProgrammeCostMin = 0;
 
 export const updateSimulationResponseInputsConnectionsMin = 0;
 
@@ -703,6 +1518,23 @@ export const UpdateSimulationResponse = zod.object({
   "currency": zod.string(),
   "version": zod.number().int(),
   "inputs": zod.object({
+  "interactive": zod.object({
+  "staffPer1000": zod.number().min(updateSimulationResponseInputsInteractiveStaffPer1000Min).nullish(),
+  "monthlySalary": zod.number().min(updateSimulationResponseInputsInteractiveMonthlySalaryMin).nullish(),
+  "payMonths": zod.number().min(updateSimulationResponseInputsInteractivePayMonthsMin).nullish(),
+  "chemicalUnitCost": zod.number().min(updateSimulationResponseInputsInteractiveChemicalUnitCostMin).nullish(),
+  "miscellaneousPercent": zod.number().min(updateSimulationResponseInputsInteractiveMiscellaneousPercentMin).nullish(),
+  "serviceFeePercent": zod.number().min(updateSimulationResponseInputsInteractiveServiceFeePercentMin).nullish(),
+  "baselineCollectionPercent": zod.number().gt(updateSimulationResponseInputsInteractiveBaselineCollectionPercentExclusiveMin).max(updateSimulationResponseInputsInteractiveBaselineCollectionPercentMax).nullish(),
+  "appliedTariffSource": zod.enum(['inferred', 'manual']).optional(),
+  "collectEnabled": zod.boolean().optional(),
+  "collectionTarget": zod.number().min(updateSimulationResponseInputsInteractiveCollectionTargetMin).max(updateSimulationResponseInputsInteractiveCollectionTargetMax).nullish(),
+  "nrwEnabled": zod.boolean().optional(),
+  "nrwTarget": zod.number().min(updateSimulationResponseInputsInteractiveNrwTargetMin).lt(updateSimulationResponseInputsInteractiveNrwTargetExclusiveMax).nullish(),
+  "omEnabled": zod.boolean().optional(),
+  "omSavingPercent": zod.number().min(updateSimulationResponseInputsInteractiveOmSavingPercentMin).max(updateSimulationResponseInputsInteractiveOmSavingPercentMax).nullish(),
+  "programmeCost": zod.number().min(updateSimulationResponseInputsInteractiveProgrammeCostMin).nullish()
+}).optional(),
   "historicalStart": zod.string().optional(),
   "historicalEnd": zod.string().optional(),
   "connections": zod.number().min(updateSimulationResponseInputsConnectionsMin).nullish(),
@@ -771,6 +1603,32 @@ export const UpdateSimulationResponse = zod.object({
 export const DuplicateSimulationParams = zod.object({
   "id": zod.coerce.string()
 })
+
+export const duplicateSimulationResponseInputsInteractiveStaffPer1000Min = 0;
+
+export const duplicateSimulationResponseInputsInteractiveMonthlySalaryMin = 0;
+
+export const duplicateSimulationResponseInputsInteractivePayMonthsMin = 0;
+
+export const duplicateSimulationResponseInputsInteractiveChemicalUnitCostMin = 0;
+
+export const duplicateSimulationResponseInputsInteractiveMiscellaneousPercentMin = 0;
+
+export const duplicateSimulationResponseInputsInteractiveServiceFeePercentMin = 0;
+
+export const duplicateSimulationResponseInputsInteractiveBaselineCollectionPercentExclusiveMin = 0;
+export const duplicateSimulationResponseInputsInteractiveBaselineCollectionPercentMax = 100;
+
+export const duplicateSimulationResponseInputsInteractiveCollectionTargetMin = 0;
+export const duplicateSimulationResponseInputsInteractiveCollectionTargetMax = 100;
+
+export const duplicateSimulationResponseInputsInteractiveNrwTargetMin = 0;
+export const duplicateSimulationResponseInputsInteractiveNrwTargetExclusiveMax = 100;
+
+export const duplicateSimulationResponseInputsInteractiveOmSavingPercentMin = 0;
+export const duplicateSimulationResponseInputsInteractiveOmSavingPercentMax = 100;
+
+export const duplicateSimulationResponseInputsInteractiveProgrammeCostMin = 0;
 
 export const duplicateSimulationResponseInputsConnectionsMin = 0;
 
@@ -853,6 +1711,23 @@ export const DuplicateSimulationResponse = zod.object({
   "currency": zod.string(),
   "version": zod.number().int(),
   "inputs": zod.object({
+  "interactive": zod.object({
+  "staffPer1000": zod.number().min(duplicateSimulationResponseInputsInteractiveStaffPer1000Min).nullish(),
+  "monthlySalary": zod.number().min(duplicateSimulationResponseInputsInteractiveMonthlySalaryMin).nullish(),
+  "payMonths": zod.number().min(duplicateSimulationResponseInputsInteractivePayMonthsMin).nullish(),
+  "chemicalUnitCost": zod.number().min(duplicateSimulationResponseInputsInteractiveChemicalUnitCostMin).nullish(),
+  "miscellaneousPercent": zod.number().min(duplicateSimulationResponseInputsInteractiveMiscellaneousPercentMin).nullish(),
+  "serviceFeePercent": zod.number().min(duplicateSimulationResponseInputsInteractiveServiceFeePercentMin).nullish(),
+  "baselineCollectionPercent": zod.number().gt(duplicateSimulationResponseInputsInteractiveBaselineCollectionPercentExclusiveMin).max(duplicateSimulationResponseInputsInteractiveBaselineCollectionPercentMax).nullish(),
+  "appliedTariffSource": zod.enum(['inferred', 'manual']).optional(),
+  "collectEnabled": zod.boolean().optional(),
+  "collectionTarget": zod.number().min(duplicateSimulationResponseInputsInteractiveCollectionTargetMin).max(duplicateSimulationResponseInputsInteractiveCollectionTargetMax).nullish(),
+  "nrwEnabled": zod.boolean().optional(),
+  "nrwTarget": zod.number().min(duplicateSimulationResponseInputsInteractiveNrwTargetMin).lt(duplicateSimulationResponseInputsInteractiveNrwTargetExclusiveMax).nullish(),
+  "omEnabled": zod.boolean().optional(),
+  "omSavingPercent": zod.number().min(duplicateSimulationResponseInputsInteractiveOmSavingPercentMin).max(duplicateSimulationResponseInputsInteractiveOmSavingPercentMax).nullish(),
+  "programmeCost": zod.number().min(duplicateSimulationResponseInputsInteractiveProgrammeCostMin).nullish()
+}).optional(),
   "historicalStart": zod.string().optional(),
   "historicalEnd": zod.string().optional(),
   "connections": zod.number().min(duplicateSimulationResponseInputsConnectionsMin).nullish(),
@@ -932,6 +1807,32 @@ export const listRunsResponseInputsStartYearMax = 2100;
 export const listRunsResponseInputsEndYearMin = 2020;
 export const listRunsResponseInputsEndYearMax = 2100;
 
+export const listRunsResponseInputsInputsInteractiveStaffPer1000Min = 0;
+
+export const listRunsResponseInputsInputsInteractiveMonthlySalaryMin = 0;
+
+export const listRunsResponseInputsInputsInteractivePayMonthsMin = 0;
+
+export const listRunsResponseInputsInputsInteractiveChemicalUnitCostMin = 0;
+
+export const listRunsResponseInputsInputsInteractiveMiscellaneousPercentMin = 0;
+
+export const listRunsResponseInputsInputsInteractiveServiceFeePercentMin = 0;
+
+export const listRunsResponseInputsInputsInteractiveBaselineCollectionPercentExclusiveMin = 0;
+export const listRunsResponseInputsInputsInteractiveBaselineCollectionPercentMax = 100;
+
+export const listRunsResponseInputsInputsInteractiveCollectionTargetMin = 0;
+export const listRunsResponseInputsInputsInteractiveCollectionTargetMax = 100;
+
+export const listRunsResponseInputsInputsInteractiveNrwTargetMin = 0;
+export const listRunsResponseInputsInputsInteractiveNrwTargetExclusiveMax = 100;
+
+export const listRunsResponseInputsInputsInteractiveOmSavingPercentMin = 0;
+export const listRunsResponseInputsInputsInteractiveOmSavingPercentMax = 100;
+
+export const listRunsResponseInputsInputsInteractiveProgrammeCostMin = 0;
+
 export const listRunsResponseInputsInputsConnectionsMin = 0;
 
 export const listRunsResponseInputsInputsHouseholdsMin = 0;
@@ -1005,6 +1906,61 @@ export const listRunsResponseInputsInputsProjectsItemGraceYearsMax = 10;
 
 
 export const ListRunsResponseItem = zod.object({
+  "interactive": zod.object({
+  "baseline": zod.array(zod.object({
+  "year": zod.number().int(),
+  "fixedOpex": zod.number().nullable(),
+  "variableOpex": zod.number().nullable(),
+  "opex": zod.number().nullable(),
+  "depreciation": zod.number().nullable(),
+  "workingCapital": zod.number().nullable(),
+  "requiredRevenue": zod.number().nullable(),
+  "workbookVolume": zod.number().nullable(),
+  "workbookTariff": zod.number().nullable(),
+  "utilityConnections": zod.number().nullable(),
+  "utilityBilledVolume": zod.number().nullable(),
+  "systemInput": zod.number().nullable(),
+  "appliedTariff": zod.number().nullable(),
+  "collectionPercent": zod.number().nullable(),
+  "grossBillings": zod.number().nullable(),
+  "collections": zod.number().nullable(),
+  "cashOmCoverage": zod.number().nullable(),
+  "operatingBalance": zod.number().nullable(),
+  "targetBalance": zod.number().nullable(),
+  "targetCollectionTariff": zod.number().nullable()
+})),
+  "improved": zod.array(zod.object({
+  "year": zod.number().int(),
+  "fixedOpex": zod.number().nullable(),
+  "variableOpex": zod.number().nullable(),
+  "opex": zod.number().nullable(),
+  "depreciation": zod.number().nullable(),
+  "workingCapital": zod.number().nullable(),
+  "requiredRevenue": zod.number().nullable(),
+  "workbookVolume": zod.number().nullable(),
+  "workbookTariff": zod.number().nullable(),
+  "utilityConnections": zod.number().nullable(),
+  "utilityBilledVolume": zod.number().nullable(),
+  "systemInput": zod.number().nullable(),
+  "appliedTariff": zod.number().nullable(),
+  "collectionPercent": zod.number().nullable(),
+  "grossBillings": zod.number().nullable(),
+  "collections": zod.number().nullable(),
+  "cashOmCoverage": zod.number().nullable(),
+  "operatingBalance": zod.number().nullable(),
+  "targetBalance": zod.number().nullable(),
+  "targetCollectionTariff": zod.number().nullable()
+})),
+  "calibration": zod.object({
+  "baselineCollectionPercent": zod.number().nullable(),
+  "impliedHistoricalBillings": zod.number().nullable(),
+  "inferredAverageTariff": zod.number().nullable(),
+  "appliedTariff": zod.number().nullable(),
+  "baselineNrw": zod.number().nullable(),
+  "historicalMonths": zod.number().nullable()
+}),
+  "warnings": zod.array(zod.string())
+}).optional(),
   "id": zod.string(),
   "simulationId": zod.string(),
   "inputVersion": zod.number().int(),
@@ -1019,6 +1975,23 @@ export const ListRunsResponseItem = zod.object({
   "currency": zod.string(),
   "version": zod.number().int(),
   "inputs": zod.object({
+  "interactive": zod.object({
+  "staffPer1000": zod.number().min(listRunsResponseInputsInputsInteractiveStaffPer1000Min).nullish(),
+  "monthlySalary": zod.number().min(listRunsResponseInputsInputsInteractiveMonthlySalaryMin).nullish(),
+  "payMonths": zod.number().min(listRunsResponseInputsInputsInteractivePayMonthsMin).nullish(),
+  "chemicalUnitCost": zod.number().min(listRunsResponseInputsInputsInteractiveChemicalUnitCostMin).nullish(),
+  "miscellaneousPercent": zod.number().min(listRunsResponseInputsInputsInteractiveMiscellaneousPercentMin).nullish(),
+  "serviceFeePercent": zod.number().min(listRunsResponseInputsInputsInteractiveServiceFeePercentMin).nullish(),
+  "baselineCollectionPercent": zod.number().gt(listRunsResponseInputsInputsInteractiveBaselineCollectionPercentExclusiveMin).max(listRunsResponseInputsInputsInteractiveBaselineCollectionPercentMax).nullish(),
+  "appliedTariffSource": zod.enum(['inferred', 'manual']).optional(),
+  "collectEnabled": zod.boolean().optional(),
+  "collectionTarget": zod.number().min(listRunsResponseInputsInputsInteractiveCollectionTargetMin).max(listRunsResponseInputsInputsInteractiveCollectionTargetMax).nullish(),
+  "nrwEnabled": zod.boolean().optional(),
+  "nrwTarget": zod.number().min(listRunsResponseInputsInputsInteractiveNrwTargetMin).lt(listRunsResponseInputsInputsInteractiveNrwTargetExclusiveMax).nullish(),
+  "omEnabled": zod.boolean().optional(),
+  "omSavingPercent": zod.number().min(listRunsResponseInputsInputsInteractiveOmSavingPercentMin).max(listRunsResponseInputsInputsInteractiveOmSavingPercentMax).nullish(),
+  "programmeCost": zod.number().min(listRunsResponseInputsInputsInteractiveProgrammeCostMin).nullish()
+}).optional(),
   "historicalStart": zod.string().optional(),
   "historicalEnd": zod.string().optional(),
   "connections": zod.number().min(listRunsResponseInputsInputsConnectionsMin).nullish(),
@@ -1139,6 +2112,32 @@ export const calculateSimulationResponseInputsStartYearMax = 2100;
 export const calculateSimulationResponseInputsEndYearMin = 2020;
 export const calculateSimulationResponseInputsEndYearMax = 2100;
 
+export const calculateSimulationResponseInputsInputsInteractiveStaffPer1000Min = 0;
+
+export const calculateSimulationResponseInputsInputsInteractiveMonthlySalaryMin = 0;
+
+export const calculateSimulationResponseInputsInputsInteractivePayMonthsMin = 0;
+
+export const calculateSimulationResponseInputsInputsInteractiveChemicalUnitCostMin = 0;
+
+export const calculateSimulationResponseInputsInputsInteractiveMiscellaneousPercentMin = 0;
+
+export const calculateSimulationResponseInputsInputsInteractiveServiceFeePercentMin = 0;
+
+export const calculateSimulationResponseInputsInputsInteractiveBaselineCollectionPercentExclusiveMin = 0;
+export const calculateSimulationResponseInputsInputsInteractiveBaselineCollectionPercentMax = 100;
+
+export const calculateSimulationResponseInputsInputsInteractiveCollectionTargetMin = 0;
+export const calculateSimulationResponseInputsInputsInteractiveCollectionTargetMax = 100;
+
+export const calculateSimulationResponseInputsInputsInteractiveNrwTargetMin = 0;
+export const calculateSimulationResponseInputsInputsInteractiveNrwTargetExclusiveMax = 100;
+
+export const calculateSimulationResponseInputsInputsInteractiveOmSavingPercentMin = 0;
+export const calculateSimulationResponseInputsInputsInteractiveOmSavingPercentMax = 100;
+
+export const calculateSimulationResponseInputsInputsInteractiveProgrammeCostMin = 0;
+
 export const calculateSimulationResponseInputsInputsConnectionsMin = 0;
 
 export const calculateSimulationResponseInputsInputsHouseholdsMin = 0;
@@ -1212,6 +2211,61 @@ export const calculateSimulationResponseInputsInputsProjectsItemGraceYearsMax = 
 
 
 export const CalculateSimulationResponse = zod.object({
+  "interactive": zod.object({
+  "baseline": zod.array(zod.object({
+  "year": zod.number().int(),
+  "fixedOpex": zod.number().nullable(),
+  "variableOpex": zod.number().nullable(),
+  "opex": zod.number().nullable(),
+  "depreciation": zod.number().nullable(),
+  "workingCapital": zod.number().nullable(),
+  "requiredRevenue": zod.number().nullable(),
+  "workbookVolume": zod.number().nullable(),
+  "workbookTariff": zod.number().nullable(),
+  "utilityConnections": zod.number().nullable(),
+  "utilityBilledVolume": zod.number().nullable(),
+  "systemInput": zod.number().nullable(),
+  "appliedTariff": zod.number().nullable(),
+  "collectionPercent": zod.number().nullable(),
+  "grossBillings": zod.number().nullable(),
+  "collections": zod.number().nullable(),
+  "cashOmCoverage": zod.number().nullable(),
+  "operatingBalance": zod.number().nullable(),
+  "targetBalance": zod.number().nullable(),
+  "targetCollectionTariff": zod.number().nullable()
+})),
+  "improved": zod.array(zod.object({
+  "year": zod.number().int(),
+  "fixedOpex": zod.number().nullable(),
+  "variableOpex": zod.number().nullable(),
+  "opex": zod.number().nullable(),
+  "depreciation": zod.number().nullable(),
+  "workingCapital": zod.number().nullable(),
+  "requiredRevenue": zod.number().nullable(),
+  "workbookVolume": zod.number().nullable(),
+  "workbookTariff": zod.number().nullable(),
+  "utilityConnections": zod.number().nullable(),
+  "utilityBilledVolume": zod.number().nullable(),
+  "systemInput": zod.number().nullable(),
+  "appliedTariff": zod.number().nullable(),
+  "collectionPercent": zod.number().nullable(),
+  "grossBillings": zod.number().nullable(),
+  "collections": zod.number().nullable(),
+  "cashOmCoverage": zod.number().nullable(),
+  "operatingBalance": zod.number().nullable(),
+  "targetBalance": zod.number().nullable(),
+  "targetCollectionTariff": zod.number().nullable()
+})),
+  "calibration": zod.object({
+  "baselineCollectionPercent": zod.number().nullable(),
+  "impliedHistoricalBillings": zod.number().nullable(),
+  "inferredAverageTariff": zod.number().nullable(),
+  "appliedTariff": zod.number().nullable(),
+  "baselineNrw": zod.number().nullable(),
+  "historicalMonths": zod.number().nullable()
+}),
+  "warnings": zod.array(zod.string())
+}).optional(),
   "id": zod.string(),
   "simulationId": zod.string(),
   "inputVersion": zod.number().int(),
@@ -1226,6 +2280,23 @@ export const CalculateSimulationResponse = zod.object({
   "currency": zod.string(),
   "version": zod.number().int(),
   "inputs": zod.object({
+  "interactive": zod.object({
+  "staffPer1000": zod.number().min(calculateSimulationResponseInputsInputsInteractiveStaffPer1000Min).nullish(),
+  "monthlySalary": zod.number().min(calculateSimulationResponseInputsInputsInteractiveMonthlySalaryMin).nullish(),
+  "payMonths": zod.number().min(calculateSimulationResponseInputsInputsInteractivePayMonthsMin).nullish(),
+  "chemicalUnitCost": zod.number().min(calculateSimulationResponseInputsInputsInteractiveChemicalUnitCostMin).nullish(),
+  "miscellaneousPercent": zod.number().min(calculateSimulationResponseInputsInputsInteractiveMiscellaneousPercentMin).nullish(),
+  "serviceFeePercent": zod.number().min(calculateSimulationResponseInputsInputsInteractiveServiceFeePercentMin).nullish(),
+  "baselineCollectionPercent": zod.number().gt(calculateSimulationResponseInputsInputsInteractiveBaselineCollectionPercentExclusiveMin).max(calculateSimulationResponseInputsInputsInteractiveBaselineCollectionPercentMax).nullish(),
+  "appliedTariffSource": zod.enum(['inferred', 'manual']).optional(),
+  "collectEnabled": zod.boolean().optional(),
+  "collectionTarget": zod.number().min(calculateSimulationResponseInputsInputsInteractiveCollectionTargetMin).max(calculateSimulationResponseInputsInputsInteractiveCollectionTargetMax).nullish(),
+  "nrwEnabled": zod.boolean().optional(),
+  "nrwTarget": zod.number().min(calculateSimulationResponseInputsInputsInteractiveNrwTargetMin).lt(calculateSimulationResponseInputsInputsInteractiveNrwTargetExclusiveMax).nullish(),
+  "omEnabled": zod.boolean().optional(),
+  "omSavingPercent": zod.number().min(calculateSimulationResponseInputsInputsInteractiveOmSavingPercentMin).max(calculateSimulationResponseInputsInputsInteractiveOmSavingPercentMax).nullish(),
+  "programmeCost": zod.number().min(calculateSimulationResponseInputsInputsInteractiveProgrammeCostMin).nullish()
+}).optional(),
   "historicalStart": zod.string().optional(),
   "historicalEnd": zod.string().optional(),
   "connections": zod.number().min(calculateSimulationResponseInputsInputsConnectionsMin).nullish(),
@@ -1341,6 +2412,32 @@ export const getRunResponseInputsStartYearMax = 2100;
 export const getRunResponseInputsEndYearMin = 2020;
 export const getRunResponseInputsEndYearMax = 2100;
 
+export const getRunResponseInputsInputsInteractiveStaffPer1000Min = 0;
+
+export const getRunResponseInputsInputsInteractiveMonthlySalaryMin = 0;
+
+export const getRunResponseInputsInputsInteractivePayMonthsMin = 0;
+
+export const getRunResponseInputsInputsInteractiveChemicalUnitCostMin = 0;
+
+export const getRunResponseInputsInputsInteractiveMiscellaneousPercentMin = 0;
+
+export const getRunResponseInputsInputsInteractiveServiceFeePercentMin = 0;
+
+export const getRunResponseInputsInputsInteractiveBaselineCollectionPercentExclusiveMin = 0;
+export const getRunResponseInputsInputsInteractiveBaselineCollectionPercentMax = 100;
+
+export const getRunResponseInputsInputsInteractiveCollectionTargetMin = 0;
+export const getRunResponseInputsInputsInteractiveCollectionTargetMax = 100;
+
+export const getRunResponseInputsInputsInteractiveNrwTargetMin = 0;
+export const getRunResponseInputsInputsInteractiveNrwTargetExclusiveMax = 100;
+
+export const getRunResponseInputsInputsInteractiveOmSavingPercentMin = 0;
+export const getRunResponseInputsInputsInteractiveOmSavingPercentMax = 100;
+
+export const getRunResponseInputsInputsInteractiveProgrammeCostMin = 0;
+
 export const getRunResponseInputsInputsConnectionsMin = 0;
 
 export const getRunResponseInputsInputsHouseholdsMin = 0;
@@ -1414,6 +2511,61 @@ export const getRunResponseInputsInputsProjectsItemGraceYearsMax = 10;
 
 
 export const GetRunResponse = zod.object({
+  "interactive": zod.object({
+  "baseline": zod.array(zod.object({
+  "year": zod.number().int(),
+  "fixedOpex": zod.number().nullable(),
+  "variableOpex": zod.number().nullable(),
+  "opex": zod.number().nullable(),
+  "depreciation": zod.number().nullable(),
+  "workingCapital": zod.number().nullable(),
+  "requiredRevenue": zod.number().nullable(),
+  "workbookVolume": zod.number().nullable(),
+  "workbookTariff": zod.number().nullable(),
+  "utilityConnections": zod.number().nullable(),
+  "utilityBilledVolume": zod.number().nullable(),
+  "systemInput": zod.number().nullable(),
+  "appliedTariff": zod.number().nullable(),
+  "collectionPercent": zod.number().nullable(),
+  "grossBillings": zod.number().nullable(),
+  "collections": zod.number().nullable(),
+  "cashOmCoverage": zod.number().nullable(),
+  "operatingBalance": zod.number().nullable(),
+  "targetBalance": zod.number().nullable(),
+  "targetCollectionTariff": zod.number().nullable()
+})),
+  "improved": zod.array(zod.object({
+  "year": zod.number().int(),
+  "fixedOpex": zod.number().nullable(),
+  "variableOpex": zod.number().nullable(),
+  "opex": zod.number().nullable(),
+  "depreciation": zod.number().nullable(),
+  "workingCapital": zod.number().nullable(),
+  "requiredRevenue": zod.number().nullable(),
+  "workbookVolume": zod.number().nullable(),
+  "workbookTariff": zod.number().nullable(),
+  "utilityConnections": zod.number().nullable(),
+  "utilityBilledVolume": zod.number().nullable(),
+  "systemInput": zod.number().nullable(),
+  "appliedTariff": zod.number().nullable(),
+  "collectionPercent": zod.number().nullable(),
+  "grossBillings": zod.number().nullable(),
+  "collections": zod.number().nullable(),
+  "cashOmCoverage": zod.number().nullable(),
+  "operatingBalance": zod.number().nullable(),
+  "targetBalance": zod.number().nullable(),
+  "targetCollectionTariff": zod.number().nullable()
+})),
+  "calibration": zod.object({
+  "baselineCollectionPercent": zod.number().nullable(),
+  "impliedHistoricalBillings": zod.number().nullable(),
+  "inferredAverageTariff": zod.number().nullable(),
+  "appliedTariff": zod.number().nullable(),
+  "baselineNrw": zod.number().nullable(),
+  "historicalMonths": zod.number().nullable()
+}),
+  "warnings": zod.array(zod.string())
+}).optional(),
   "id": zod.string(),
   "simulationId": zod.string(),
   "inputVersion": zod.number().int(),
@@ -1428,6 +2580,23 @@ export const GetRunResponse = zod.object({
   "currency": zod.string(),
   "version": zod.number().int(),
   "inputs": zod.object({
+  "interactive": zod.object({
+  "staffPer1000": zod.number().min(getRunResponseInputsInputsInteractiveStaffPer1000Min).nullish(),
+  "monthlySalary": zod.number().min(getRunResponseInputsInputsInteractiveMonthlySalaryMin).nullish(),
+  "payMonths": zod.number().min(getRunResponseInputsInputsInteractivePayMonthsMin).nullish(),
+  "chemicalUnitCost": zod.number().min(getRunResponseInputsInputsInteractiveChemicalUnitCostMin).nullish(),
+  "miscellaneousPercent": zod.number().min(getRunResponseInputsInputsInteractiveMiscellaneousPercentMin).nullish(),
+  "serviceFeePercent": zod.number().min(getRunResponseInputsInputsInteractiveServiceFeePercentMin).nullish(),
+  "baselineCollectionPercent": zod.number().gt(getRunResponseInputsInputsInteractiveBaselineCollectionPercentExclusiveMin).max(getRunResponseInputsInputsInteractiveBaselineCollectionPercentMax).nullish(),
+  "appliedTariffSource": zod.enum(['inferred', 'manual']).optional(),
+  "collectEnabled": zod.boolean().optional(),
+  "collectionTarget": zod.number().min(getRunResponseInputsInputsInteractiveCollectionTargetMin).max(getRunResponseInputsInputsInteractiveCollectionTargetMax).nullish(),
+  "nrwEnabled": zod.boolean().optional(),
+  "nrwTarget": zod.number().min(getRunResponseInputsInputsInteractiveNrwTargetMin).lt(getRunResponseInputsInputsInteractiveNrwTargetExclusiveMax).nullish(),
+  "omEnabled": zod.boolean().optional(),
+  "omSavingPercent": zod.number().min(getRunResponseInputsInputsInteractiveOmSavingPercentMin).max(getRunResponseInputsInputsInteractiveOmSavingPercentMax).nullish(),
+  "programmeCost": zod.number().min(getRunResponseInputsInputsInteractiveProgrammeCostMin).nullish()
+}).optional(),
   "historicalStart": zod.string().optional(),
   "historicalEnd": zod.string().optional(),
   "connections": zod.number().min(getRunResponseInputsInputsConnectionsMin).nullish(),

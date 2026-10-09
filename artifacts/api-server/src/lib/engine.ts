@@ -2,6 +2,8 @@
  * Deterministic engines. No expected-result fixtures are imported at runtime.
  * Workbook-reference is explicitly NOT the reviewed utility cash method.
  */
+import { workbookYear, calculateInteractive } from "./interactive.ts";
+import type { InteractiveSettings } from "@workspace/api-zod";
 export type NumberOrMissing = number | null | undefined;
 export interface Observation {
   metric: string; value: number | null; unit: string; periodStart: string;
@@ -13,6 +15,7 @@ export interface Project {
   graceYears?: number; source?: string;
 }
 export interface Values {
+  interactive?: InteractiveSettings;
   historicalStart?: string; historicalEnd?: string;
   connections?: NumberOrMissing; households?: NumberOrMissing; servedHouseholds?: NumberOrMissing;
   production?: NumberOrMissing; billedVolume?: NumberOrMissing; billings?: NumberOrMissing;
@@ -36,7 +39,7 @@ export interface Annual {
   loanDraw: number | null; equity: number | null; requiredTariff: number | null;
   revenue: number | null; collectedRevenue: number | null; cashGap: number | null; closingCash: number | null;
 }
-export const ENGINE_VERSION = "utility-cash-1.0.1+workbook-reference-1.0.0";
+export const ENGINE_VERSION = "utility-cash-1.0.1+workbook-reference-2.0.0+poc-1.0.0";
 export const known = (n: NumberOrMissing): n is number => typeof n === "number" && Number.isFinite(n);
 const divide = (a: NumberOrMissing, b: NumberOrMissing, scale = 1) => known(a) && known(b) && b > 0 ? a / b * scale : null;
 export function coveredDays(start?: string, end?: string): number | null {
@@ -98,6 +101,7 @@ export function calculate(snapshot: Snapshot) {
   const first = annual.slice(0,5), second = annual.slice(5,10);
   return {
     engineVersion: ENGINE_VERSION, method: v.method ?? "reviewed", baseline: b, annual,
+    ...(v.interactive && v.method==="workbook_reference"?{interactive:calculateInteractive(snapshot)}:{}),
     warnings: [...new Set(warnings)], explanations,
     summary: {
       equivalentTariff: divide(required, volume),
@@ -200,23 +204,20 @@ function workbookReference(s: Snapshot, warnings: string[], explanations: string
   warnings.push("External workbook links and commissioning dates are unresolved. Reference uses accepted cached input drivers from the supplied workbook, not a complete Excel recalculation.");
   explanations.push(
     "Workbook reference recreates the supplied zero-debt, zero-equity example from primitive driver observations; expected outputs are never used as runtime values.",
-    "Salary = workbook connections ÷ 250 × PHP19,090 × 13 months × (1 + inflation)^year. Booster power = BBWSP m³ × power cost × inflation factor.",
-    "Bulk cost = BBWSP m³ × observed bulk price (19.85 through 2034; 25.8 from 2035). Miscellaneous = 5% of direct costs; service fee = 10% of direct costs plus miscellaneous.",
+    "Salary = workbook connections × staff per 1,000 ÷ 1,000 × monthly salary × paid months × inflation factor. Booster power = BBWSP m³ × power cost × inflation factor. Editable POC cost assumptions override the original defaults.",
+    "Bulk cost = BBWSP m³ × observed annual bulk price without additional inflation. Miscellaneous is a percentage of direct costs; the service fee is a percentage of direct costs plus miscellaneous.",
     "Required rate = (OPEX + full annual working capital + depreciation) ÷ (deep-well + PWSP + BBWSP volumes). This disputed boundary is deliberately preserved for traceability only.",
     "Five-year minimum = arithmetic mean of the five annual reference rates × 10 m³, not a demonstrated revenue-recovering household bill."
   );
   const driver = (metric:string,year:number) => observations.find(o=>o.metric===metric && Number(o.periodStart.slice(0,4))===year && ["Known","Estimated"].includes(o.quality))?.value??null;
   if ((v.projects??[]).some(p=>p.grantPercent!==100 || p.equityPercent!==0)) warnings.push("Workbook reconstruction supports only the supplied 100%-grant, zero-equity case; use reviewed method for nonzero debt/equity.");
   for (let year=s.startYear;year<=s.endYear;year++) {
-    const r=emptyYear(year), t=year-2030;
-    const conn=driver("legacy_connections",year), pwsp=driver("legacy_pwsp",year), bbwsp=driver("legacy_bbwsp",year), dw=driver("legacy_deep_well",year), price=driver("legacy_bulk_price",year);
-    r.connections=conn;
-    r.billedVolume=known(pwsp)&&known(bbwsp)&&known(dw)?pwsp+bbwsp+dw:null;
+    const r=emptyYear(year), wb=workbookYear(v,year);
+    r.connections=wb.connections;
+    r.billedVolume=wb.workbookVolume;
     r.systemInput=null;
-    const f=known(v.inflation)?(1+v.inflation/100)**t:null;
-    const direct=known(conn)&&known(bbwsp)&&known(dw)&&known(price)&&known(f)&&known(v.energyCost) ? conn/250*19090*13*f + bbwsp*v.energyCost*f + dw*0.5*f + bbwsp*price : null;
-    r.opex=known(direct)?direct*1.05*1.10:null;
-    r.depreciation=(v.projects??[]).filter(p=>p.year<=year && year<p.year+p.usefulLife).reduce((n,p)=>n+p.amount/p.usefulLife,0);
+    r.opex=wb.opex;
+    r.depreciation=wb.depreciation;
     const invalidFunding=(v.projects??[]).some(p=>p.grantPercent!==100||p.equityPercent!==0);
     if(invalidFunding) r.depreciation=null;
     r.capex=(v.projects??[]).filter(p=>p.year===year).reduce((n,p)=>n+p.amount,0);
